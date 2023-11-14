@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="FormUsuario.Login">
+    <Position X="0.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAAAAAAKAAABAAAACAAAACAIAIGAAAEAQAAAAAABA=</HashCode>
+      <FileName>Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.LogearUsuario">
+    <Position X="1.75" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQBAACAAAAAAAAAAAQAAACAAAAQAAAAAAA=</HashCode>
+      <FileName>LogearUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmPrincipal">
+    <Position X="4.25" Y="0.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAQEAAAOSgABAAgACCAIACCADIABiAQBAAMBCMCAA=</HashCode>
+      <FileName>FrmPrincipal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmElegirPersonaje">
+    <Position X="9.25" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAACCAAAIgAhACAAAACAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FrmElegirPersonaje.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmCRUDPrincipal">
+    <Position X="5" Y="8.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QBAEAAAAACCAABCAAACIAAACACAAAAAAAAAEAAAACAA=</HashCode>
+      <FileName>FrmCRUDPrincipal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmCRUDArquero">
+    <Position X="1" Y="13" Width="4" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAACAAARAAAACAAAACAAAAAAAAIAAAAAABAAE=</HashCode>
+      <FileName>FrmCRUDArquero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmCRUDGuerrero">
+    <Position X="5.5" Y="13" Width="4.25" />
+    <InheritanceLine Type="FormUsuario.FrmCRUDPrincipal" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="12.492" />
+        <Point X="6.75" Y="13" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAgAACCAAACAgAAAgAAAAAAAACAgAA=</HashCode>
+      <FileName>FrmCRUDGuerrero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.FrmCRUDMago">
+    <Position X="10.5" Y="12.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAACSAEAQEAACAAAACAAAAIAACAAACAAAAAAA=</HashCode>
+      <FileName>FrmCRUDMago.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormUsuario.CrearLog">
+    <Position X="9.25" Y="4.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAQAAAAQAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>CrearLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

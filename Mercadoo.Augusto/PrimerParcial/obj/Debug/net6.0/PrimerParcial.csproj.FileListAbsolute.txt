@@ -1,0 +1,11 @@
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\bin\Debug\net6.0\PrimerParcial.deps.json
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\bin\Debug\net6.0\PrimerParcial.dll
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\bin\Debug\net6.0\PrimerParcial.pdb
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.AssemblyInfoInputs.cache
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.AssemblyInfo.cs
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.csproj.CoreCompileInputs.cache
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.dll
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\refint\PrimerParcial.dll
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\PrimerParcial.pdb
+C:\Users\augus\source\repos\Mercadoo.Augusto\PrimerParcial\obj\Debug\net6.0\ref\PrimerParcial.dll
