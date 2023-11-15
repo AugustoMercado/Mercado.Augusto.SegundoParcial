@@ -13,8 +13,19 @@ namespace FormUsuario.BaseDatos
     public class AccesoBaseDatos
     {
         private SqlConnection conexion;
-        private string cadenaConexion;
+        static string cadenaConexion;
 
+
+        static AccesoBaseDatos()
+        {
+            AccesoBaseDatos.cadenaConexion = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=parcialDB;Integrated Security=True";
+        }
+
+        public AccesoBaseDatos()
+        {
+            this.conexion = new SqlConnection(AccesoBaseDatos.cadenaConexion);
+
+        }
 
     }
 }
