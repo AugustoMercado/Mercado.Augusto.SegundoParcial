@@ -478,7 +478,7 @@ namespace FormUsuario
                         this.ActualizarVisualizador();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception exepcion)
                 {
 
                     Console.WriteLine("Error al Deserializar los Datos");
