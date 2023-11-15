@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
+using Microsoft.Data.SqlClient;
 
 namespace FormUsuario.BaseDatos
 {
-    internal class AccesoBaseDatos
+    public class AccesoBaseDatos
     {
+        private SqlConnection conexion;
+        private string cadenaConexion;
+
+
     }
 }
