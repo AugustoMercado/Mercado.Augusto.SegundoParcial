@@ -14,7 +14,7 @@ namespace FormUsuario.BaseDatos
     {
         private SqlConnection conexion;
         static string cadenaConexion;
-
+        private SqlCommand sqlComando;
 
         static AccesoBaseDatos()
         {
@@ -52,8 +52,53 @@ namespace FormUsuario.BaseDatos
 
                 }
             }
+        }
+
+        /// <summary>
+        /// Metodo que nos permitira agregegar un personaje a la base de datos.
+        /// </summary>
+        /// <param name="cadena">Le pasamos una cadena con la tabla y los atributos que va agregar.</param>
+        /// <returns>retorna true si logro agregar, en caso contrario false.</returns>
+        public bool AgregarPersonajeBaseDato(string cadena)
+
+        {
+            bool retorno = false;
+            try
+            {
+                this.sqlComando = new SqlCommand();
+                this.sqlComando.CommandType = System.Data.CommandType.Text;
+                this.sqlComando.CommandText = cadena;
 
 
+                this.sqlComando.Connection = this.conexion;
+                this.conexion.Open();
+
+                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                if (filaAfectadas == 1)
+                {
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+                retorno = false;
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    this.conexion.Close();
+
+                }
+
+            }
+
+            return retorno;
 
         }
 
