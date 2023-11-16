@@ -18,12 +18,42 @@ namespace FormUsuario.BaseDatos
 
         static AccesoBaseDatos()
         {
-            AccesoBaseDatos.cadenaConexion = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=parcialDB;Integrated Security=True";
+            AccesoBaseDatos.cadenaConexion = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=parcialDB;Integrated Security=True;Trust Server Certificate=True";
         }
 
         public AccesoBaseDatos()
         {
             this.conexion = new SqlConnection(AccesoBaseDatos.cadenaConexion);
+
+        }
+
+        /// <summary>
+        /// Metodo para probar que la conexion funcione.
+        /// </summary>
+        /// <returns>retorna true si se logro, false en caso contrario.</returns>
+        public bool ProbarConexion()
+        {
+            try
+            {
+                this.conexion.Open();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    this.conexion.Close();
+
+                }
+            }
+
+
 
         }
 
