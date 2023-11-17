@@ -18,6 +18,7 @@ using System.Runtime.Serialization;
 using Microsoft.VisualBasic.Logging;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using FormUsuario.BaseDatos;
 
 namespace FormUsuario
 {
@@ -28,6 +29,7 @@ namespace FormUsuario
         private Ejercito personajes;
         private string path;
         private CrearLog escribirlog;
+        private AccesoBaseDatos baseDatos;
         #endregion
 
         #region Constructores
@@ -72,6 +74,8 @@ namespace FormUsuario
                     {
 
                         personajes = this.personajes += crudMago.personaje;
+                        this.baseDatos.AgregarPersonajeBaseDato("insert into Mago (nombre,nivel,tipoPersonaje,tipoMagia,puntosMagia)" +
+                        " values ('" + crudMago.personaje.nombre + "'," + crudMago.personaje.nivel + ",'" + crudMago.personaje.tipoPersonaje.ToString() + "','" + crudMago.personaje.tipoMagia.ToString() + "'," + crudMago.personaje.puntosMagia + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
 
                     }
@@ -85,6 +89,9 @@ namespace FormUsuario
                     if (crudGuerrero.DialogResult == DialogResult.OK)
                     {
                         personajes = this.personajes += crudGuerrero.guerrero;
+
+                        this.baseDatos.AgregarPersonajeBaseDato("insert into Guerrero (nombre,nivel,tipoPersonaje,ataque,defensa)" +
+                        " values ('" + crudGuerrero.guerrero.nombre + "'," + crudGuerrero.guerrero.nivel + ",'" + crudGuerrero.guerrero.tipoPersonaje.ToString() + "'," + crudGuerrero.guerrero.puntosAtaque + "," + crudGuerrero.guerrero.puntosAtaque + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
                 }
@@ -98,6 +105,8 @@ namespace FormUsuario
                     if (crudArquero.DialogResult == DialogResult.OK)
                     {
                         personajes = this.personajes += crudArquero.arquero;
+                        this.baseDatos.AgregarPersonajeBaseDato("insert into Arqueroo (nombre,nivel,tipoPersonaje,puntosPrecision,puntosVelocidad)" +
+                        " values ('" + crudArquero.arquero.nombre + "'," + crudArquero.arquero.nivel + ",'" + crudArquero.arquero.tipoPersonaje.ToString() + "'," + crudArquero.arquero.puntosPrecision + "," + crudArquero.arquero.puntosVelocidad + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
 
