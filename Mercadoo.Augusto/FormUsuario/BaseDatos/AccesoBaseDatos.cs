@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
+using PrimerParcial;
 using Microsoft.Data.SqlClient;
 
 namespace FormUsuario.BaseDatos
@@ -101,6 +102,9 @@ namespace FormUsuario.BaseDatos
             return retorno;
 
         }
+
+
+
 
     }
 }

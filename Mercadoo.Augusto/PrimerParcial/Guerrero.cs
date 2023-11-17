@@ -16,10 +16,18 @@ namespace PrimerParcial
 
         public int puntosAtaque;
         public int puntosDefensa;
+        public int id;
 
 
         #endregion
-
+        #region Propiedades
+        public int ID { get { return this.id; } set { this.id = value; } }
+        public string Nombre { get { return this.nombre; } set { this.nombre = value; } }
+        public int Nivel { get { return this.nivel; } set { this.nivel = value; } }
+        public int Ataque { get { return this.puntosAtaque; } set { this.puntosAtaque = value; } }
+        public int Defensa { get { return this.puntosDefensa; } set { this.puntosAtaque = value; } }
+        public EPersonajes TipoPersonaje { get { return this.tipoPersonaje; } set { this.tipoPersonaje = value; } }
+        #endregion
 
         #region Constructores
 
