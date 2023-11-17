@@ -103,6 +103,52 @@ namespace FormUsuario.BaseDatos
 
         }
 
+        public bool ModificarPersonaje(Guerrero p)
+        {
+            bool retorno = false;
+            try
+            {
+                this.sqlComando = new SqlCommand();
+                this.sqlComando.CommandType = System.Data.CommandType.Text;
+                this.sqlComando.CommandText = "update Personaje SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
+                this.sqlComando.Parameters.AddWithValue("@nombre", p.nombre);
+                this.sqlComando.Parameters.AddWithValue("@nivel", p.nivel);
+                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", p.TipoPersonaje.ToString());
+                this.sqlComando.Parameters.AddWithValue("@ataque", p.Ataque);
+                this.sqlComando.Parameters.AddWithValue("@defensa", p.Defensa);
+                this.sqlComando.Parameters.AddWithValue("@id", p.ID);
+
+                this.sqlComando.Connection = this.conexion;
+                this.conexion.Open();
+
+                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                if (filaAfectadas == 1)
+                {
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+                retorno = false;
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    this.conexion.Close();
+
+                }
+
+            }
+
+            return retorno;
+
+        }
 
 
 
