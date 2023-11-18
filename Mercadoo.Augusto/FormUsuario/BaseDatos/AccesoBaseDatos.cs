@@ -259,6 +259,45 @@ namespace FormUsuario.BaseDatos
 
         }
 
+        /// <summary>
+        /// Nos elimina un personaje de la base de datos.
+        /// </summary>
+        /// <param name="tabla">nombre de la tabla para buscar el personaje.</param>
+        /// <param name="id">id del personaje a borrar</param>
+        /// <returns>si lo borro retorna true, en caso contrario retorna false</returns>
+        public bool EliminarPersonaje(string tabla, int id)
+        {
+            bool retorno = false;
+
+            try
+            {
+                this.sqlComando = new SqlCommand();
+                this.sqlComando.CommandType = System.Data.CommandType.Text;
+                this.sqlComando.CommandText = $"DELETE FROM {tabla} WHERE id = @id";
+                this.sqlComando.Parameters.AddWithValue("@id", id);
+
+                this.sqlComando.Connection = this.conexion;
+                this.conexion.Open();
+
+                int filasAfectadas = sqlComando.ExecuteNonQuery();
+
+                if (filasAfectadas == 1)
+                {
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al eliminar el arquero: " + e.Message);
+                retorno = false;
+            }
+
+            return retorno;
+        }
+
+
 
 
     }

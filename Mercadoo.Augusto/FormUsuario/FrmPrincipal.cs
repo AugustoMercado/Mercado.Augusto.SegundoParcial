@@ -211,7 +211,14 @@ namespace FormUsuario
                 if (crudMago.DialogResult == DialogResult.OK)
                 {
 
-                    personajes = this.personajes -= personajeM;
+             
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        personajes = this.personajes -= personajeM;
+                        this.baseDatos.EliminarPersonaje("Personaje", personajeM.ID);
+
+                    }
                     this.escribirlog.mensaje = this.personajes.mensaje;
 
                 }
@@ -227,7 +234,14 @@ namespace FormUsuario
 
                 if (crudGuerrero.DialogResult == DialogResult.OK)
                 {
-                    personajes = this.personajes -= personajeG;
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        personajes = this.personajes -= personajeG;
+                        this.baseDatos.EliminarPersonaje("Personaje", personajeG.ID);
+
+                    }
+               
                     this.escribirlog.mensaje = this.personajes.mensaje;
                 }
 
@@ -243,7 +257,14 @@ namespace FormUsuario
                 if (crudArquero.DialogResult == DialogResult.OK)
                 {
 
-                    personajes = this.personajes -= personajeA;
+                 
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (result == DialogResult.OK)
+                    {
+                        personajes = this.personajes -= personajeA;
+                        this.baseDatos.EliminarPersonaje("Personaje", personajeA.ID);
+
+                    }
                     this.escribirlog.mensaje = this.personajes.mensaje;
                 }
 
