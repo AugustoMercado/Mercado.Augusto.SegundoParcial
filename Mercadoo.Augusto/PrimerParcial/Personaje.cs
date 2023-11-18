@@ -9,9 +9,11 @@ namespace PrimerParcial
 
         #region  Atributos
 
+
         public string nombre;
         public int nivel;
         public EPersonajes tipoPersonaje;
+        public int id;
         #endregion
 
         #region Constructores
@@ -19,26 +21,36 @@ namespace PrimerParcial
         /// <summary>
         /// Constructor sin parametros.
         /// </summary>
-        public  Personaje()
+        public Personaje()
         {
 
         }
 
+        public Personaje(int id) : this()
+        {
+
+            this.id = id;
+
+
+        }
+
         /// <summary>
-        /// Constructor para pasar el nombre
+        /// Constructor para pasar nombre y id
         /// </summary>
-        /// <param name="nombre">Nombre del personaje</param>
-        public Personaje(string nombre) : this()
+        /// <param name="nombre">nombre del personaje</param>
+        /// <param name="id">id del personaje.</param>
+        public Personaje(string nombre, int id) : this(id)
         {
             this.nombre = nombre;
         }
 
         /// <summary>
-        /// Constructor para pasar el nombre y nivel
+        /// Constructor para pasar nombre, id y nivel
         /// </summary>
-        /// <param name="nombre">Nombre del personaje</param>
-        /// <param name="nivel">Nivel del personaje</param>
-        public Personaje(string nombre, int nivel) : this(nombre)
+        /// <param name="nombre">nombre del personaje</param>
+        /// <param name="id">id del personaje.</param>
+        /// <param name="nivel">nivel del personaje.</param>
+        public Personaje(string nombre, int id, int nivel) : this(nombre, id)
         {
 
             this.nivel = nivel;
@@ -46,19 +58,20 @@ namespace PrimerParcial
 
         }
 
+
         /// <summary>
-        /// Constructor con todos los parametros
+        /// 
         /// </summary>
-        /// <param name="nombre">Nombre del personaje</param>
-        /// <param name="nivel">Nivel del personaje</param>
-        /// <param name="personaje">Tipo del personaje</param>
-        public Personaje(string nombre, int nivel,EPersonajes personaje) : this(nombre, nivel)
+        /// <param name="nombre">nombre del personaje</param>
+        /// <param name="nivel">nivel del personaje.</param>
+        /// <param name="id">id del personaje.</param>
+        /// <param name="personaje">El tipo de personaje</param>
+        public Personaje(string nombre, int nivel, int id, EPersonajes personaje) : this(nombre, nivel, id)
         {
 
             this.tipoPersonaje = personaje;
 
         }
-
         #endregion
 
 
