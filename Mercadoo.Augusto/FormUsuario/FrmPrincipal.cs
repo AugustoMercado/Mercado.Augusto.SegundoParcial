@@ -143,6 +143,7 @@ namespace FormUsuario
                 {
 
                     this.personajes.miembros[index] = crudMago.personaje;
+                    this.baseDatos.ModificarPersonaje(crudMago.personaje);
                     mensaje = $"Se modifico{personajeM} a {crudMago.personaje}.";
 
                 }
@@ -177,6 +178,7 @@ namespace FormUsuario
                 {
 
                     this.personajes.miembros[index] = crudArquero.arquero;
+                    this.baseDatos.ModificarPersonaje(crudArquero.arquero);
                     mensaje = $"Se modifico{personajeA} a {crudArquero.arquero}.";
 
 

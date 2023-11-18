@@ -103,6 +103,11 @@ namespace FormUsuario.BaseDatos
 
         }
 
+        /// <summary>
+        /// Nos permite modificar un personaje (guerrero) de la base buscando su ID
+        /// </summary>
+        /// <param name="p">guerrero a modificar/buscar en la base</param>
+        /// <returns>retorna true si logro modificarlo, en caso contrario false</returns>
         public bool ModificarPersonaje(Guerrero p)
         {
             bool retorno = false;
@@ -117,6 +122,110 @@ namespace FormUsuario.BaseDatos
                 this.sqlComando.Parameters.AddWithValue("@ataque", p.Ataque);
                 this.sqlComando.Parameters.AddWithValue("@defensa", p.Defensa);
                 this.sqlComando.Parameters.AddWithValue("@id", p.ID);
+
+                this.sqlComando.Connection = this.conexion;
+                this.conexion.Open();
+
+                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                if (filaAfectadas == 1)
+                {
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+                retorno = false;
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    this.conexion.Close();
+
+                }
+
+            }
+
+            return retorno;
+
+        }
+
+        /// <summary>
+        /// Nos permite modificar un personaje (mago) de la base buscando su ID
+        /// </summary>
+        /// <param name="m">mago a modificar/buscar en la base</param>
+        /// <returns>retorna true si logro modificarlo, en caso contrario false</returns>
+        public bool ModificarPersonaje(Mago m)
+        {
+            bool retorno = false;
+            try
+            {
+                this.sqlComando = new SqlCommand();
+                this.sqlComando.CommandType = System.Data.CommandType.Text;
+                this.sqlComando.CommandText = "update Mago SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, tipoMagia = @tipoMagia, puntosMagia = @puntosMagia WHERE id = @id";
+                this.sqlComando.Parameters.AddWithValue("@nombre", m.nombre);
+                this.sqlComando.Parameters.AddWithValue("@nivel", m.nivel);
+                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", m.tipoPersonaje.ToString());
+                this.sqlComando.Parameters.AddWithValue("@tipoMagia", m.tipoMagia.ToString());
+                this.sqlComando.Parameters.AddWithValue("@puntosMagia", m.puntosMagia);
+                this.sqlComando.Parameters.AddWithValue("@id", m.ID);
+
+                this.sqlComando.Connection = this.conexion;
+                this.conexion.Open();
+
+                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                if (filaAfectadas == 1)
+                {
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+                retorno = false;
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    this.conexion.Close();
+
+                }
+
+            }
+
+            return retorno;
+
+        }
+
+        /// <summary>
+        /// Nos permite modificar un personaje (arquero) de la base buscando su ID
+        /// </summary>
+        /// <param name="a">arquero a modificar/buscar en la base</param>
+        /// <returns>retorna true si logro modificarlo, en caso contrario false</returns>
+        public bool ModificarPersonaje(Arquero a)
+        {
+            bool retorno = false;
+            try
+            {
+                this.sqlComando = new SqlCommand();
+                this.sqlComando.CommandType = System.Data.CommandType.Text;
+                this.sqlComando.CommandText = "update Mago SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosPrecision = @puntosPrecision, puntosVelocidad = @puntosVelocidad WHERE id = @id";
+                this.sqlComando.Parameters.AddWithValue("@nombre", a.nombre);
+                this.sqlComando.Parameters.AddWithValue("@nivel", a.nivel);
+                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", a.tipoPersonaje.ToString());
+                this.sqlComando.Parameters.AddWithValue("@puntosPrecision", a.PuntosPrecision);
+                this.sqlComando.Parameters.AddWithValue("@puntosVelocidad", a.PuntosVelocidad);
+                this.sqlComando.Parameters.AddWithValue("@id", a.ID);
 
                 this.sqlComando.Connection = this.conexion;
                 this.conexion.Open();
