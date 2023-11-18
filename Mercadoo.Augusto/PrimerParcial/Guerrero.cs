@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace PrimerParcial
 {
@@ -84,7 +85,91 @@ namespace PrimerParcial
             return sb.ToString();
         }
 
+        public Ejercito ObtenerDatos(string cadena, Ejercito lista)
+        {
+            SqlConnection conexion = new(cadena);
+            SqlDataReader lector;
+            try
+            {
+                SqlCommand sqlComando = new SqlCommand();
+                sqlComando.CommandType = System.Data.CommandType.Text;
+                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,ataque,defensa FROM Personaje";
+                sqlComando.Connection = conexion;
+                conexion.Open();
+                lector = sqlComando.ExecuteReader();
+                while (lector.Read())
+                {
+                    Guerrero personaje = new Guerrero();
+                    personaje.ID = (int)lector["id"];
+                    personaje.Nombre = lector[1].ToString();
+                    personaje.Nivel = (int)lector["nivel"];
+                    personaje.TipoPersonaje = EPersonajes.guerrero;
+                    personaje.Ataque = (int)lector["ataque"];
+                    personaje.Defensa = (int)lector["defensa"];
+
+
+                    lista += personaje;
+
+                }
+                lector.Close();
+
+
+            }
+            catch (Exception e)
+            {
+
+
+            }
+            finally
+            {
+                if (conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    conexion.Close();
+
+                }
+
+            }
+            return lista;
+
+
+
+        }
+
+        public bool EliminarPersonaje(string cadena, int id)
+        {
+            SqlConnection conexion = new(cadena);
+            bool retorno = false;
+
+            try
+            {
+                SqlCommand sqlComando = new SqlCommand();
+                sqlComando.CommandType = System.Data.CommandType.Text;
+                sqlComando.CommandText = $"DELETE FROM Personaje WHERE id = @id";
+                sqlComando.Parameters.AddWithValue("@id", id);
+
+                sqlComando.Connection = conexion;
+                conexion.Open();
+
+                int filasAfectadas = sqlComando.ExecuteNonQuery();
+
+                if (filasAfectadas == 1)
+                {
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al eliminar el arquero: " + e.Message);
+                retorno = false;
+            }
+
+            return retorno;
+        }
         #endregion
+
 
 
     }

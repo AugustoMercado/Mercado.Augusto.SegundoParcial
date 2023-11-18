@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace PrimerParcial
 {
-    public class Arquero : Personaje
+    public class Arquero : Personaje, IBaseDatos
     {
         #region Atributos
 
@@ -74,6 +75,89 @@ namespace PrimerParcial
             sb.AppendLine($"\n Puntos de precision: {this.puntosPrecision}\n Puntos de velocidad: {this.puntosVelocidad}");
             return sb.ToString();
 
+        }
+
+        public Ejercito ObtenerDatos(string cadena, Ejercito lista)
+        {
+
+            SqlConnection conexion = new(cadena);
+            SqlDataReader lector;
+            try
+            {
+                SqlCommand sqlComando = new SqlCommand();
+                sqlComando.CommandType = System.Data.CommandType.Text;
+                //en vez de codearlo, pasarlo como parametro.
+                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,puntosPrecision,puntosVelocidad FROM Arqueroo";
+                sqlComando.Connection = conexion;
+                conexion.Open();
+                lector = sqlComando.ExecuteReader();
+                while (lector.Read())
+                {
+                    Arquero personaje = new Arquero();
+                    personaje.ID = (int)lector["id"];
+                    personaje.nombre = lector[1].ToString();
+                    personaje.nivel = (int)lector["nivel"];
+                    personaje.tipoPersonaje = EPersonajes.arquero;
+                    personaje.puntosPrecision = (int)lector["puntosPrecision"];
+                    personaje.puntosVelocidad = (int)lector["puntosVelocidad"];
+                    lista += personaje;
+
+                }
+                lector.Close();
+
+
+            }
+            catch (Exception e)
+            {
+
+
+            }
+            finally
+            {
+                if (conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    conexion.Close();
+
+                }
+
+            }
+            return lista;
+
+
+        }
+
+        public bool EliminarPersonaje(string cadena, int id)
+        {
+            SqlConnection conexion = new(cadena);
+            bool retorno = false;
+
+            try
+            {
+                SqlCommand sqlComando = new SqlCommand();
+                sqlComando.CommandType = System.Data.CommandType.Text;
+                sqlComando.CommandText = $"DELETE FROM Arquero  WHERE id = @id";
+                sqlComando.Parameters.AddWithValue("@id", id);
+
+                sqlComando.Connection = conexion;
+                conexion.Open();
+
+                int filasAfectadas = sqlComando.ExecuteNonQuery();
+
+                if (filasAfectadas == 1)
+                {
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al eliminar el arquero: " + e.Message);
+                retorno = false;
+            }
+
+            return retorno;
         }
 
         #endregion
