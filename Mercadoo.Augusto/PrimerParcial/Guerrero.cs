@@ -8,10 +8,11 @@ using System.Xml;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
+
 namespace PrimerParcial
 {
 
-    public  class Guerrero : Personaje
+    public  class Guerrero : Personaje,IBaseDatos
     {
         #region  Atributos
 
@@ -145,7 +146,7 @@ namespace PrimerParcial
             {
                 SqlCommand sqlComando = new SqlCommand();
                 sqlComando.CommandType = System.Data.CommandType.Text;
-                sqlComando.CommandText = $"DELETE FROM Personaje WHERE id = @id";
+                sqlComando.CommandText = $"DELETE FROM Guerrero WHERE id = @id";
                 sqlComando.Parameters.AddWithValue("@id", id);
 
                 sqlComando.Connection = conexion;

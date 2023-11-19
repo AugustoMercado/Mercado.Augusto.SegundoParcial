@@ -216,7 +216,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeM;
-                        this.baseDatos.EliminarPersonaje("Personaje", personajeM.ID);
+                        personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
@@ -238,7 +238,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeG;
-                        this.baseDatos.EliminarPersonaje("Personaje", personajeG.ID);
+                        personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
 
                     }
                
@@ -262,7 +262,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeA;
-                        this.baseDatos.EliminarPersonaje("Personaje", personajeA.ID);
+                        personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
