@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace PrimerParcial
 {
-    public class Mago : Personaje
+    public class Mago : Personaje, IBaseDatos
     {
         #region Atributos
 
