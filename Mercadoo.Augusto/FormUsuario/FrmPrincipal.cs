@@ -32,6 +32,8 @@ namespace FormUsuario
         private CrearLog escribirlog;
         private AccesoBaseDatos baseDatos;
         private LogearUsuario usuario;
+        private Datos datos;
+        private ObtenerDatos datosG;
         #endregion
 
         #region Constructores
@@ -39,6 +41,7 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.personajes = new(100, "Brasil");
+
         }
 
         public FrmPrincipal(LogearUsuario usuarioActual) : this()
