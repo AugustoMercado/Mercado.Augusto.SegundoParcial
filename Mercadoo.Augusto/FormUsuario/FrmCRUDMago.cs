@@ -18,6 +18,7 @@ namespace FormUsuario
         #region  Atributos
         public Mago personaje;
         private static Emagia magia;
+        private int id;
         #endregion
 
         #region  Constructores
@@ -72,7 +73,14 @@ namespace FormUsuario
                     magia = Emagia.Curación;
                     break;
             }
-            if (resultNivel != -1 && resultPuntosMagia != -1)
+            if (this.id > 0 && resultNivel != -1 && resultPuntosMagia != -1)
+            {
+                this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
+                this.personaje.ID = this.id;
+                this.DialogResult = DialogResult.OK;
+
+            }
+            else if (resultNivel != -1 && resultPuntosMagia != -1)
             {
                 this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
                 this.DialogResult = DialogResult.OK;

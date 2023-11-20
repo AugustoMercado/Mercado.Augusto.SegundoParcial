@@ -17,6 +17,7 @@ namespace FormUsuario
     {
         #region Atributos
         public Guerrero guerrero;
+        private int id;
         #endregion
 
         #region Constructores
@@ -55,9 +56,20 @@ namespace FormUsuario
             int resultPuntosAtaque = ValidarEntero(txtPuntosAtaque.Text);
             int resultPuntosDefensa = ValidarEntero(base.txtNivel.Text);
 
-            if (resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+            if (this.id > 0 && resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
             {
+
                 this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
+                this.guerrero.ID = this.id;
+                this.DialogResult = DialogResult.OK;
+
+            }
+
+            else if (resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+            {
+
+                this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
+
                 this.DialogResult = DialogResult.OK;
             }
 

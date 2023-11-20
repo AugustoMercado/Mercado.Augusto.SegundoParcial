@@ -16,6 +16,7 @@ namespace FormUsuario
     {
         #region Atributos
         public Arquero arquero;
+        private int id;
         #endregion
 
         #region Constructores
@@ -54,8 +55,14 @@ namespace FormUsuario
             int resultNivel = ValidarEntero(base.txtNivel.Text);
             int resultPuntosVelocidad = ValidarEntero(this.txtVelocidad.Text);
             int resultPrecision = ValidarEntero(this.txtPrecision.Text);
+            if (this.id > 0 && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+            {
+                this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
+                this.arquero.ID = this.id;
+                this.DialogResult = DialogResult.OK;
 
-            if (resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+            }
+            else if (resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
             {
 
                 this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
