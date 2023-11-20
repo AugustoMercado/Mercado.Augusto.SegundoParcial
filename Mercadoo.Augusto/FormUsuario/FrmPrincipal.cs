@@ -41,7 +41,8 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.personajes = new(100, "Brasil");
-
+            this.datosG = this.obtenerDatosGenerales;
+            this.datosG.Invoke();
         }
 
         public FrmPrincipal(LogearUsuario usuarioActual) : this()
@@ -369,6 +370,23 @@ namespace FormUsuario
             this.ActualizarVisualizador();
 
         }
+
+        /// <summary>
+        /// Metodo para llamar a los metodos de las clases hijas y sumarlos en el delegado.
+        /// </summary>
+        private void obtenerDatosGenerales()
+        {
+            Guerrero g = new();
+            this.datos += g.ObtenerDatos;
+            Arquero a = new();
+            this.datos += a.ObtenerDatos;
+            Mago m = new();
+            this.datos += m.ObtenerDatos;
+
+            this.personajes = this.datos.Invoke(Properties.Resources.miConexion, this.personajes);
+        }
+
+
         /// <summary>
         /// Con un RadioButton seleccionamos por cual metodo deseamos ordenar a los miembros (por nivel o nombre
         /// </summary>
