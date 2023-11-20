@@ -8,5 +8,10 @@ namespace FormUsuario.Interfaces
 {
     public interface IConfiguracion
     {
+
+        /// <summary>
+        /// Metodo para configurar Forms.
+        /// </summary>
+        public void ConfigurarForm();
     }
 }
