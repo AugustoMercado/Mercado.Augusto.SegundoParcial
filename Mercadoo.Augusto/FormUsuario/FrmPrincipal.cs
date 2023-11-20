@@ -59,7 +59,7 @@ namespace FormUsuario
         #region Metodos Forms Del CRUD
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            bool retorno = false;
             FrmElegirPersonaje frmE = new();
             frmE.ShowDialog();
 
@@ -74,7 +74,7 @@ namespace FormUsuario
                     {
 
                         personajes = this.personajes += crudMago.personaje;
-                        this.baseDatos.AgregarPersonajeBaseDato("insert into Mago (nombre,nivel,tipoPersonaje,tipoMagia,puntosMagia)" +
+                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Mago (nombre,nivel,tipoPersonaje,tipoMagia,puntosMagia)" +
                         " values ('" + crudMago.personaje.nombre + "'," + crudMago.personaje.nivel + ",'" + crudMago.personaje.tipoPersonaje.ToString() + "','" + crudMago.personaje.tipoMagia.ToString() + "'," + crudMago.personaje.puntosMagia + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
 
@@ -90,7 +90,7 @@ namespace FormUsuario
                     {
                         personajes = this.personajes += crudGuerrero.guerrero;
 
-                        this.baseDatos.AgregarPersonajeBaseDato("insert into Guerrero (nombre,nivel,tipoPersonaje,ataque,defensa)" +
+                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Guerrero (nombre,nivel,tipoPersonaje,ataque,defensa)" +
                         " values ('" + crudGuerrero.guerrero.nombre + "'," + crudGuerrero.guerrero.nivel + ",'" + crudGuerrero.guerrero.tipoPersonaje.ToString() + "'," + crudGuerrero.guerrero.puntosAtaque + "," + crudGuerrero.guerrero.puntosAtaque + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
@@ -105,7 +105,7 @@ namespace FormUsuario
                     if (crudArquero.DialogResult == DialogResult.OK)
                     {
                         personajes = this.personajes += crudArquero.arquero;
-                        this.baseDatos.AgregarPersonajeBaseDato("insert into Arqueroo (nombre,nivel,tipoPersonaje,puntosPrecision,puntosVelocidad)" +
+                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Arqueroo (nombre,nivel,tipoPersonaje,puntosPrecision,puntosVelocidad)" +
                         " values ('" + crudArquero.arquero.nombre + "'," + crudArquero.arquero.nivel + ",'" + crudArquero.arquero.tipoPersonaje.ToString() + "'," + crudArquero.arquero.puntosPrecision + "," + crudArquero.arquero.puntosVelocidad + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
@@ -113,6 +113,7 @@ namespace FormUsuario
                 }
                 this.MostrarBoton();
             }
+            this.MostrarMensaje("Se agrego con exito", "Error al agregar", retorno);
 
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
@@ -143,7 +144,9 @@ namespace FormUsuario
                 {
 
                     this.personajes.miembros[index] = crudMago.personaje;
-                    this.baseDatos.ModificarPersonaje(crudMago.personaje);
+                    //this.baseDatos.ModificarPersonaje(crudMago.personaje);
+                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudMago.personaje));
+
                     mensaje = $"Se modifico{personajeM} a {crudMago.personaje}.";
 
                 }
@@ -159,7 +162,9 @@ namespace FormUsuario
                 {
 
                     this.personajes.miembros[index] = crudGuerrero.guerrero;
-                    this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero);
+                    //this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero);
+                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero));
+
                     mensaje = $"Se modifico{personajeG} a {crudGuerrero.guerrero}.";
 
                 }
@@ -178,7 +183,9 @@ namespace FormUsuario
                 {
 
                     this.personajes.miembros[index] = crudArquero.arquero;
-                    this.baseDatos.ModificarPersonaje(crudArquero.arquero);
+                    //this.baseDatos.ModificarPersonaje(crudArquero.arquero);
+                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudArquero.arquero));
+
                     mensaje = $"Se modifico{personajeA} a {crudArquero.arquero}.";
 
 
@@ -192,7 +199,7 @@ namespace FormUsuario
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
+            bool retorno = false;
             int index = this.lstEjercito.SelectedIndex;
 
             if (index == -1)
@@ -216,7 +223,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeM;
-                        personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
+                        retorno = personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
@@ -238,7 +245,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeG;
-                        personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
+                        retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
 
                     }
                
@@ -262,13 +269,14 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeA;
-                        personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
+                        retorno = personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
                 }
 
             }
+            this.MostrarMensaje("Se elimino con exito", "Error al eliminar", retorno);
 
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
@@ -426,6 +434,19 @@ namespace FormUsuario
                     break;
             }
         
+        
+        }
+
+        public void MostrarMensaje(string mensajeTrue, string mensajeFalse, bool respuesta)
+        {
+            if (respuesta)
+            {
+                MessageBox.Show(mensajeTrue);
+            }
+            else
+            {
+                MessageBox.Show(mensajeFalse);
+            }
         }
 
         /// <summary>
