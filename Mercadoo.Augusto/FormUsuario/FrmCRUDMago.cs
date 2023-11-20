@@ -1,4 +1,5 @@
-﻿using PrimerParcial;
+﻿using FormUsuario.Interfaces;
+using PrimerParcial;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace FormUsuario
 {
-    public partial class FrmCRUDMago : FrmCRUDPrincipal
+    public partial class FrmCRUDMago : FrmCRUDPrincipal, IConfiguracion
     {
         #region  Atributos
         public Mago personaje;
@@ -23,7 +24,7 @@ namespace FormUsuario
         public FrmCRUDMago()
         {
             InitializeComponent();
-
+            this.ConfigurarForm();
         }
 
         public FrmCRUDMago(Mago prod) : this()
@@ -39,6 +40,16 @@ namespace FormUsuario
         #endregion
 
         #region metodos form
+
+        public void ConfigurarForm()
+        {
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Formulario Mago";
+            this.txtNombre.Focus();
+
+
+        }
         private void btnAceptarMago_Click(object sender, EventArgs e)
         {
             string nombre = base.txtNombre.Text;

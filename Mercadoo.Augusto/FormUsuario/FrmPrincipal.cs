@@ -19,10 +19,11 @@ using Microsoft.VisualBasic.Logging;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using FormUsuario.BaseDatos;
+using FormUsuario.Interfaces;
 
 namespace FormUsuario
 {
-    public partial class FrmPrincipal : Form
+    public partial class FrmPrincipal : Form, IMensaje, IConfiguracion
     {
 
         #region Atributos
@@ -30,32 +31,37 @@ namespace FormUsuario
         private string path;
         private CrearLog escribirlog;
         private AccesoBaseDatos baseDatos;
+        private LogearUsuario usuario;
         #endregion
 
         #region Constructores
         public FrmPrincipal()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
-
+            this.personajes = new(100, "Brasil");
         }
 
-        public FrmPrincipal(LogearUsuario usuario) : this()
+        public FrmPrincipal(LogearUsuario usuarioActual) : this()
         {
-
-            MessageBox.Show($"Bienvenido de nuevo {usuario.apellido} {usuario.nombre}");
+            this.usuario = usuarioActual;
+            this.ConfigurarForm();
             this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
-            this.Text = $"{usuario.apellido} {usuario.nombre} - {DateTime.Today}";
-            this.lblEjercito.Text = $"Ejercito de {usuario.apellido}";
-            this.personajes = new(6, "Brasil");
-            this.path = $"EjercitoDe{usuario.apellido}.xml";
-            this.MostrarCRUD(usuario);
+            //this.path = $"EjercitoDe{usuario.apellido}.xml";
+            this.MostrarCRUD(this.usuario);
             this.ActualizarVisualizador();
 
 
         }
         #endregion
+        public void ConfigurarForm()
+        {
+            this.StartPosition = FormStartPosition.CenterScreen;
+            MessageBox.Show($"Bienvenido de nuevo {this.usuario.apellido} {this.usuario.nombre}");
+            this.Text = $"{usuario.apellido} {usuario.nombre} - {DateTime.Today}";
+            this.lblEjercito.Text = $"Ejercito de {usuario.apellido}";
+            this.MostrarBoton();
 
+        }
         #region Metodos Forms Del CRUD
         private void btnAgregar_Click(object sender, EventArgs e)
         {

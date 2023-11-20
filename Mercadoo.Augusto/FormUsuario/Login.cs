@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using FormUsuario.Interfaces;
 
 namespace FormUsuario
 {
-    public partial class Login : Form
+    public partial class Login : Form, IConfiguracion
     {
 
         private List<LogearUsuario> listaUsuarios;
@@ -21,8 +22,18 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.listaUsuarios = new List<LogearUsuario>();
-            this.StartPosition = FormStartPosition.CenterScreen;
             this.intentos = 0;
+            this.ConfigurarForm();
+
+        }
+
+        public void ConfigurarForm()
+        {
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Formulario Login";
+            this.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.textBox1.Focus();
 
         }
 

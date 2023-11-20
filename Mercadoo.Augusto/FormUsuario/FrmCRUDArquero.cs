@@ -1,4 +1,5 @@
-﻿using PrimerParcial;
+﻿using FormUsuario.Interfaces;
+using PrimerParcial;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace FormUsuario
 {
-    public partial class FrmCRUDArquero : FrmCRUDPrincipal
+    public partial class FrmCRUDArquero : FrmCRUDPrincipal, IConfiguracion
     {
         #region Atributos
         public Arquero arquero;
@@ -21,7 +22,7 @@ namespace FormUsuario
         public FrmCRUDArquero()
         {
             InitializeComponent();
-
+            this.ConfigurarForm();
 
         }
 
@@ -37,6 +38,16 @@ namespace FormUsuario
 
 
         #region Metodos Forms
+
+        public void ConfigurarForm()
+        {
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Formulario Arquero";
+            this.txtNombre.Focus();
+
+
+        }
         private void btnAceptarArquero_Click(object sender, EventArgs e)
         {
             string nombre = base.txtNombre.Text;
@@ -57,6 +68,8 @@ namespace FormUsuario
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+
         #endregion
     }
 }
