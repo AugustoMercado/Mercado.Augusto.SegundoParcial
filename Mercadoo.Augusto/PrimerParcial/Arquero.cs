@@ -12,21 +12,21 @@ namespace PrimerParcial
     {
         #region Atributos
 
+        public int id;
         public int puntosPrecision;
         public int puntosVelocidad;
         #endregion
 
-        #region Propiedades
         public int ID { get { return this.id; } set { this.id = value; } }
         public string Nombre { get { return this.nombre; } set { this.nombre = value; } }
         public int Nivel { get { return this.nivel; } set { this.nivel = value; } }
         public int PuntosPrecision { get { return this.puntosPrecision; } set { this.puntosPrecision = value; } }
         public int PuntosVelocidad { get { return this.puntosVelocidad; } set { this.puntosVelocidad = value; } }
         public EPersonajes TipoPersonaje { get { return this.tipoPersonaje; } set { this.tipoPersonaje = value; } }
-        #endregion
+
 
         #region Constructores
-        public Arquero() 
+        public Arquero()
         {
 
 
@@ -38,7 +38,7 @@ namespace PrimerParcial
         /// <param name="velocidad">Numero de velocidad del personaje.</param>
         /// <param name="nivel">Numero de nivel del personaje.</param>
         /// <param name="nombre">Nombre del personaje.</param>
-        public Arquero(int precision, int velocidad, int id, int nivel, string nombre) : base(nombre, nivel, id, EPersonajes.arquero)
+        public Arquero(int precision, int velocidad, int nivel, string nombre) : base(nombre, nivel, EPersonajes.arquero)
         {
             this.puntosPrecision = precision;
             this.puntosVelocidad = velocidad;

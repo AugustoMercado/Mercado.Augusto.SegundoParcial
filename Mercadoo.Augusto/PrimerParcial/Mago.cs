@@ -13,12 +13,8 @@ namespace PrimerParcial
 
         public Emagia tipoMagia;
         public int puntosMagia;
-        private int id;
+        public int id;
         #endregion
-
-        #region Constructor
-
-        #region Propiedades
 
         public int ID { get { return this.id; } set { this.id = value; } }
         public string Nombre { get { return this.nombre; } set { this.nombre = value; } }
@@ -28,22 +24,21 @@ namespace PrimerParcial
         public EPersonajes TipoPersonaje { get { return this.tipoPersonaje; } set { this.tipoPersonaje = value; } }
 
 
-        #endregion
-        public Mago() 
+        #region Constructor
+        public Mago()
         {
-          
+
 
         }
 
         /// <summary>
-        /// Construtor para crear un mago.
+        /// Constructor para crear un mago
         /// </summary>
-        /// <param name="magia">tipo de magia.</param>
-        /// <param name="puntosMagia">cantidad de magia.</param>
-        /// <param name="nivel">nivel del personaje</param>
-        /// <param name="id">id del personaje.</param>
-        /// <param name="nombre">nombre del personaje.</param>
-        public Mago(Emagia magia, int puntosMagia, int nivel, int id, string nombre) : base(nombre, nivel, id, EPersonajes.mago)
+        /// <param name="magia">Tipo de magia del mago</param>
+        /// <param name="puntosMagia">Numero de magia del mago</param>
+        /// <param name="nivel">Nivel del personaje</param>
+        /// <param name="nombre">Nombre del personaje</param>
+        public Mago(Emagia magia, int puntosMagia, int nivel, string nombre) : base(nombre, nivel, EPersonajes.mago)
         {
             this.tipoMagia = magia;
             this.puntosMagia = puntosMagia;
