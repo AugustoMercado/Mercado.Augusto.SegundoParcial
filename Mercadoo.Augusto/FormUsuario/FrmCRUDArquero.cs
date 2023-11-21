@@ -17,6 +17,7 @@ namespace FormUsuario
         #region Atributos
         public Arquero arquero;
         private int id;
+        private Mensaje mensaje;
         #endregion
 
         #region Constructores
@@ -24,7 +25,7 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.ConfigurarForm();
-
+            this.mensaje = MostrarMensaje;
         }
 
         public FrmCRUDArquero(Arquero arquero) : this()
@@ -55,20 +56,38 @@ namespace FormUsuario
             int resultNivel = ValidarEntero(base.txtNivel.Text);
             int resultPuntosVelocidad = ValidarEntero(this.txtVelocidad.Text);
             int resultPrecision = ValidarEntero(this.txtPrecision.Text);
-            if (this.id > 0 && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+
+            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
             {
-                this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
-                this.arquero.ID = this.id;
-                this.DialogResult = DialogResult.OK;
+                if (this.id > 0 && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+                {
+                    this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
+                    this.arquero.ID = this.id;
+                    this.DialogResult = DialogResult.OK;
 
+                }
+                else if (resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+                {
+
+                    this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
+                    this.DialogResult = DialogResult.OK;
+
+                }
             }
-            else if (resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+            else 
             {
 
-                this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
-                this.DialogResult = DialogResult.OK;
-
+                this.mensaje.Invoke("Debe llenar los campos");
+            
             }
+        }
+
+        public void MostrarMensaje(string mensaje)
+        {
+
+            MessageBox.Show(mensaje);
+
+
         }
 
         private void BtnCancelarArquero_Click(object sender, EventArgs e)

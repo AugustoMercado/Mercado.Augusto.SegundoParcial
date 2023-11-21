@@ -19,6 +19,7 @@ namespace FormUsuario
         public Mago personaje;
         private static Emagia magia;
         private int id;
+        private Mensaje mensaje;
         #endregion
 
         #region  Constructores
@@ -48,7 +49,7 @@ namespace FormUsuario
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Formulario Mago";
             this.txtNombre.Focus();
-
+            this.mensaje = MostrarMensaje;
 
         }
         private void btnAceptarMago_Click(object sender, EventArgs e)
@@ -73,19 +74,36 @@ namespace FormUsuario
                     magia = Emagia.Curación;
                     break;
             }
-            if (this.id > 0 && resultNivel != -1 && resultPuntosMagia != -1)
-            {
-                this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
-                this.personaje.ID = this.id;
-                this.DialogResult = DialogResult.OK;
 
-            }
-            else if (resultNivel != -1 && resultPuntosMagia != -1)
+            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosMagia != -1 && tipoMagia != -1)
             {
-                this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
-                this.DialogResult = DialogResult.OK;
+                if (this.id > 0 && resultNivel != -1 && resultPuntosMagia != -1)
+                {
+                    this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
+                    this.personaje.ID = this.id;
+                    this.DialogResult = DialogResult.OK;
 
+                }
+                else if (resultNivel != -1 && resultPuntosMagia != -1)
+                {
+                    this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
+                    this.DialogResult = DialogResult.OK;
+
+                }
             }
+            else 
+            {
+                this.mensaje.Invoke("Debe llenar los campos");
+            
+            }
+        }
+
+        public void MostrarMensaje(string mensaje)
+        {
+
+            MessageBox.Show(mensaje);
+
+
         }
 
         private void btnCancelarMago_Click(object sender, EventArgs e)

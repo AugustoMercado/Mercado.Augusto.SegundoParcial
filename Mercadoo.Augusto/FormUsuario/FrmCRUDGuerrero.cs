@@ -18,6 +18,7 @@ namespace FormUsuario
         #region Atributos
         public Guerrero guerrero;
         private int id;
+        private Mensaje mensaje;
         #endregion
 
         #region Constructores
@@ -25,6 +26,7 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.ConfigurarForm();
+            this.mensaje = MostrarMensaje;
         }
 
         public FrmCRUDGuerrero(Guerrero prod) : this()
@@ -56,24 +58,40 @@ namespace FormUsuario
             int resultPuntosAtaque = ValidarEntero(txtPuntosAtaque.Text);
             int resultPuntosDefensa = ValidarEntero(base.txtNivel.Text);
 
-            if (this.id > 0 && resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
             {
+                if (this.id > 0 && resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+                {
 
-                this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
-                this.guerrero.ID = this.id;
-                this.DialogResult = DialogResult.OK;
+                    this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
+                    this.guerrero.ID = this.id;
+                    this.DialogResult = DialogResult.OK;
 
+                }
+
+                else if (resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+                {
+
+                    this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
+
+                    this.DialogResult = DialogResult.OK;
+                }
             }
-
-            else if (resultNivel != -1 && resultPuntosAtaque != -1 && resultPuntosDefensa != -1)
+            else 
             {
-
-                this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
-
-                this.DialogResult = DialogResult.OK;
+                this.mensaje.Invoke("Debe llenar los campos");
             }
 
         }
+
+        public void MostrarMensaje(string mensaje)
+        {
+
+            MessageBox.Show(mensaje);
+
+
+        }
+
 
         private void BtnCancelarGuerrero_Click_1(object sender, EventArgs e)
         {
