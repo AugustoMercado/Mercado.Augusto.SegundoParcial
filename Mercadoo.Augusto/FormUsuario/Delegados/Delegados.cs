@@ -1,5 +1,14 @@
 ﻿using PrimerParcial;
 
+
+
+/// <summary>
+/// Dlegado para mostrar mensaje.
+/// </summary>
+/// <param name="mensaje">mensaje que se va a mostrar</param>
+public delegate void Mensaje(string mensaje);
+
+
 /// <summary>
 /// Delegado para llamar a los metodos de las clases hijas.
 /// </summary>
