@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using FormUsuario.BaseDatos;
 using FormUsuario.Interfaces;
+using FormUsuario.ListaGenerica;
 
 namespace FormUsuario
 {
@@ -42,16 +43,17 @@ namespace FormUsuario
             InitializeComponent();
             this.personajes = new(100, "Brasil");
             this.datosG = this.obtenerDatosGenerales;
-            this.datosG.Invoke();
+
         }
 
         public FrmPrincipal(LogearUsuario usuarioActual) : this()
         {
+            //this.path = $"EjercitoDe{usuario.apellido}.xml";
             this.usuario = usuarioActual;
             this.ConfigurarForm();
-            this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
-            //this.path = $"EjercitoDe{usuario.apellido}.xml";
+            this.datosG.Invoke();
             this.MostrarCRUD(this.usuario);
+            this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
             this.ActualizarVisualizador();
 
 
@@ -209,6 +211,10 @@ namespace FormUsuario
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            ListaPersonaje<Guerrero> guerrero = new(Properties.Resources.miConexion);
+            ListaPersonaje<Mago> mago = new(Properties.Resources.miConexion);
+            ListaPersonaje<Arquero> arquero = new(Properties.Resources.miConexion);
+
             bool retorno = false;
             int index = this.lstEjercito.SelectedIndex;
 
@@ -233,7 +239,8 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeM;
-                        retorno = personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
+                        mago.EliminarPersonaje(personajeM);
+                        //retorno = personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
@@ -255,8 +262,8 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeG;
-                        retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
-
+                        guerrero.EliminarPersonaje(personajeG);
+                        //retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
                     }
                
                     this.escribirlog.mensaje = this.personajes.mensaje;
@@ -279,7 +286,8 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeA;
-                        retorno = personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
+                        arquero.EliminarPersonaje(personajeA);
+                        //retorno = personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
 
                     }
                     this.escribirlog.mensaje = this.personajes.mensaje;
@@ -438,6 +446,10 @@ namespace FormUsuario
 
         }
 
+        /// <summary>
+        /// Dependiendo del cargo del usuario, le podra dejar hacer algunas cosas.
+        /// </summary>
+        /// <param name="usuario">usuario logeado</param>
         private void MostrarCRUD(LogearUsuario usuario) 
         {
             switch (usuario.perfil) 
