@@ -2,6 +2,8 @@
 
 
 
+public delegate void NotificarAlUsuario(object sender, Personaje mensaje);
+
 /// <summary>
 /// Dlegado para mostrar mensaje.
 /// </summary>

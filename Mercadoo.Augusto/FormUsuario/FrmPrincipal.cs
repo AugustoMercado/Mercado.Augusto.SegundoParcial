@@ -26,7 +26,6 @@ namespace FormUsuario
 {
     public partial class FrmPrincipal : Form, IMensaje, IConfiguracion
     {
-
         #region Atributos
         private Ejercito personajes;
         private string path;
@@ -35,6 +34,7 @@ namespace FormUsuario
         private LogearUsuario usuario;
         private Datos datos;
         private ObtenerDatos datosG;
+        private event NotificarAlUsuario notificacion;
         #endregion
 
         #region Constructores
@@ -43,7 +43,7 @@ namespace FormUsuario
             InitializeComponent();
             this.personajes = new(100, "Brasil");
             this.datosG = this.obtenerDatosGenerales;
-
+            this.notificacion = this.MostrarMensaje;
         }
 
         public FrmPrincipal(LogearUsuario usuarioActual) : this()
@@ -446,6 +446,18 @@ namespace FormUsuario
 
         }
 
+        private void LlmarMostrarMensaje(Personaje e)
+        {
+            // Invocar el evento de manera segura
+            this.notificacion?.Invoke(this, e);
+        }
+
+        private void MostrarMensaje(object sender, Personaje e)
+        {
+            MessageBox.Show(e.Atacar());
+
+        }
+
         /// <summary>
         /// Dependiendo del cargo del usuario, le podra dejar hacer algunas cosas.
         /// </summary>
@@ -506,10 +518,11 @@ namespace FormUsuario
 
             foreach (Personaje miembro in personajes.miembros)
             {
-                if (personaje.tipoPersonaje == miembro.tipoPersonaje)
+                if (personaje == miembro)
                 {
 
-                    sb.AppendLine($" {miembro.Atacar()}\n");
+                    this.LlmarMostrarMensaje(miembro);
+                    //sb.AppendLine($" {miembro.Atacar()}\n");
 
                 }
 
