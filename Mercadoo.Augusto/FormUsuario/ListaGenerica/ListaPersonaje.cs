@@ -24,7 +24,7 @@ namespace FormUsuario.ListaGenerica
 
 
         #region Metodo
-        public bool EliminarPersonaje(T personaje)
+        public bool EliminarPersonaje(T personaje,int id)
         {
             SqlConnection conexion = new(this.cadenaConexion);
             bool retorno = false;
@@ -33,8 +33,9 @@ namespace FormUsuario.ListaGenerica
             {
                 SqlCommand sqlComando = new SqlCommand();
                 sqlComando.CommandType = System.Data.CommandType.Text;
-                sqlComando.CommandText = $"DELETE FROM {typeof(T)} WHERE Id = @Id";
-                sqlComando.Parameters.AddWithValue("@id", personaje.id);
+
+                sqlComando.CommandText = $"DELETE FROM {typeof(T).Name} WHERE id = @id";
+                sqlComando.Parameters.AddWithValue("@id", id);
 
                 sqlComando.Connection = conexion;
                 conexion.Open();

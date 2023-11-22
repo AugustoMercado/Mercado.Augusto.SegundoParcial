@@ -42,6 +42,7 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.personajes = new(100, "Brasil");
+            this.baseDatos = new();
             this.datosG = this.obtenerDatosGenerales;
             this.notificacion = this.MostrarMensaje;
         }
@@ -55,6 +56,7 @@ namespace FormUsuario
             this.MostrarCRUD(this.usuario);
             this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
             this.ActualizarVisualizador();
+
 
 
         }
@@ -102,7 +104,7 @@ namespace FormUsuario
                     {
                         personajes = this.personajes += crudGuerrero.guerrero;
 
-                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Guerrero (nombre,nivel,tipoPersonaje,ataque,defensa)" +
+                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Guerrero (nombre,nivel,tipoPersonaje,puntosAtaque,puntosDefensa)" +
                         " values ('" + crudGuerrero.guerrero.nombre + "'," + crudGuerrero.guerrero.nivel + ",'" + crudGuerrero.guerrero.tipoPersonaje.ToString() + "'," + crudGuerrero.guerrero.puntosAtaque + "," + crudGuerrero.guerrero.puntosAtaque + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
@@ -117,7 +119,7 @@ namespace FormUsuario
                     if (crudArquero.DialogResult == DialogResult.OK)
                     {
                         personajes = this.personajes += crudArquero.arquero;
-                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Arqueroo (nombre,nivel,tipoPersonaje,puntosPrecision,puntosVelocidad)" +
+                        retorno = this.baseDatos.AgregarPersonajeBaseDato("insert into Arquero (nombre,nivel,tipoPersonaje,puntosPrecision,puntosVelocidad)" +
                         " values ('" + crudArquero.arquero.nombre + "'," + crudArquero.arquero.nivel + ",'" + crudArquero.arquero.tipoPersonaje.ToString() + "'," + crudArquero.arquero.puntosPrecision + "," + crudArquero.arquero.puntosVelocidad + ")");
                         this.escribirlog.mensaje = personajes.mensaje;
                     }
@@ -205,6 +207,7 @@ namespace FormUsuario
 
             }
             this.escribirlog.mensaje = mensaje;
+            //this.EjecutarTask(ActualizarVisualizador, "guardando....");;
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
         }
@@ -239,7 +242,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeM;
-                        mago.EliminarPersonaje(personajeM);
+                        retorno = mago.EliminarPersonaje(personajeM, personajeM.ID);
                         //retorno = personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
 
                     }
@@ -262,7 +265,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeG;
-                        guerrero.EliminarPersonaje(personajeG);
+                        retorno = guerrero.EliminarPersonaje(personajeG, personajeG.ID);
                         //retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
                     }
                
@@ -286,7 +289,7 @@ namespace FormUsuario
                     if (result == DialogResult.OK)
                     {
                         personajes = this.personajes -= personajeA;
-                        arquero.EliminarPersonaje(personajeA);
+                        retorno = arquero.EliminarPersonaje(personajeA, personajeA.ID);
                         //retorno = personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
 
                     }
@@ -295,8 +298,8 @@ namespace FormUsuario
 
             }
             this.MostrarMensaje("Se elimino con exito", "Error al eliminar", retorno);
-
-            this.ActualizarVisualizador();
+            this.escribirlog.mensaje = this.personajes.mensaje;
+            //this.EjecutarTask(ActualizarVisualizador, "guardando...."); ;
             this.ActualizarEjercito();
 
         }
@@ -312,7 +315,8 @@ namespace FormUsuario
             DialogResult result = MessageBox.Show("Esta seguro que quiere cerrar sesion?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
-                this.escribirlog.mensaje = $"Cerro sesion.";
+                this.escribirlog.mensaje = "Cerro sesion.";
+                
                 this.ActualizarVisualizador();
                 Application.Exit();
             }
@@ -423,7 +427,7 @@ namespace FormUsuario
 
             }
             this.escribirlog.mensaje = mensaje;
-            this.ActualizarVisualizador();
+            this.ActualizarVisualizador(); 
             this.ActualizarEjercito();
             metodoOrdenar = -1;
         }
@@ -446,18 +450,30 @@ namespace FormUsuario
 
         }
 
+        /// <summary>
+        /// Metodo para invocar a mostrarMensaje.
+        /// </summary>
+        /// <param name="e">parametro de mostrar mensaje</param>
         private void LlmarMostrarMensaje(Personaje e)
         {
             // Invocar el evento de manera segura
             this.notificacion?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Muestra el ataque del personaje recibido por parametros
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">personaje que hizo el ataque</param>
         private void MostrarMensaje(object sender, Personaje e)
         {
             MessageBox.Show(e.Atacar());
 
         }
 
+        /// <summary>
+        /// Metodo que llama obtiene los datos.
+        /// </summary>
         private void TraerDatos()
         {
 
@@ -465,13 +481,18 @@ namespace FormUsuario
 
         }
 
+        /// <summary>
+        /// Ejecuta un taks cada vez que se quiera
+        /// </summary>
+        /// <param name="metodo">el metodo que va a realizar una accion</param>
+        /// <param name="mensaje">el mensaje a mostrar</param>
         private void EjecutarTask(Action metodo, string mensaje)
 
         {
             Task task = new Task(metodo);
             task.Start();
             MessageBox.Show(mensaje);
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
         }
 
@@ -577,8 +598,8 @@ namespace FormUsuario
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine("Error al Deserializar los Datos");
+                //MessageBox.Show($"Error al Deserializar los Datos..... Error {ex}");
+                //Console.WriteLine("Error al Deserializar los Datos");
             }
 
 
@@ -603,8 +624,8 @@ namespace FormUsuario
                 }
                 catch (Exception exepcion)
                 {
-
-                    Console.WriteLine("Error al Deserializar los Datos");
+                    ///MessageBox.Show($"Error al Serealizar los Datos..... Error {exepcion}");
+                    Console.WriteLine($"Error al Serealizar los Datos..... Error { exepcion}");
                 }
 
             }

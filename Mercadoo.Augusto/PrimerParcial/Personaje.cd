@@ -1,2 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PrimerParcial.Personaje">
+    <Position X="4.25" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAACEgAAAAAAAAAAAAIAAAACIAAAACiA=</HashCode>
+      <FileName>Personaje.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrimerParcial.Arquero">
+    <Position X="1.25" Y="5.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAABAAAwAAEgEAAgAAAAAAAABAAAACYAAgAAgA=</HashCode>
+      <FileName>Arquero.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PrimerParcial.Guerrero">
+    <Position X="5.75" Y="5.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAACAABAAAgAAEgAAAgIAAAAAAAAAAAACoAAgAAgA=</HashCode>
+      <FileName>Guerrero.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PrimerParcial.Mago">
+    <Position X="10.5" Y="5.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>ACAABAAABAAAgAAEgQAAgAEAAAACAAAAAACIAAgAAgA=</HashCode>
+      <FileName>Mago.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="Emagia">
+    <Position X="9.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEIAAAAgAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ETipoDeMagia.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EPersonajes">
+    <Position X="2.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <FileName>EClasePersonaje.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

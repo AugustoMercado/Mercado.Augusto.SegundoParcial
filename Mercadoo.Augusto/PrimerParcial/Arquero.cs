@@ -12,7 +12,7 @@ namespace PrimerParcial
     {
         #region Atributos
 
-        public int id;
+        private int id;
         public int puntosPrecision;
         public int puntosVelocidad;
         #endregion
@@ -110,7 +110,7 @@ namespace PrimerParcial
             catch (Exception e)
             {
 
-
+                lista.mensaje = $"Error al traer los datos. Error: {e}";
             }
             finally
             {

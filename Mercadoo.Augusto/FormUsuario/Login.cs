@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FormUsuario.Interfaces;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace FormUsuario
 {
@@ -60,9 +61,24 @@ namespace FormUsuario
         private void button1_Logear(object sender, EventArgs e)
         {
 
+            this.EjecutarTask();
             if (this.intentos < 3)
             {
-                this.EjecutarTask("Buscando usuario...");
+                ///this.EjecutarTask("Buscando usuario...");
+                foreach (LogearUsuario user in listaUsuarios)
+                {
+
+                    if (this.textBox1.Text == user.correo && this.textBox2.Text == user.clave)
+                    {
+                        //Si coiciden el correo y la clave con algun usuario, se ingresara al Forms.
+                        this.Hide();
+                        FrmPrincipal frmPrincipal = new(user);
+                        frmPrincipal.ShowDialog();
+                        break;
+                    }
+
+                }
+                MessageBox.Show("Error de clave/correo.");
                 ///MessageBox.Show("Error de clave/correo.");
             }
             else 
@@ -75,32 +91,19 @@ namespace FormUsuario
    
         }
 
-        private void BuscarUsuario()
+        private void MostrarMensaje()
         {
-            foreach (LogearUsuario user in listaUsuarios)
-            {
-
-                if (this.textBox1.Text == user.correo && this.textBox2.Text == user.clave)
-                {
-                    //Si coiciden el correo y la clave con algun usuario, se ingresara al Forms.
-                    this.Hide();
-                    FrmPrincipal frmPrincipal = new(user);
-                    frmPrincipal.ShowDialog();
-                    break;
-                }
-
-            }
-            MessageBox.Show("Error de clave/correo.");
+            MessageBox.Show("Buscando usuario....");
         }
 
 
-        private void EjecutarTask(string mensaje)
+        private void EjecutarTask()
 
         {
-            Task task = new Task(BuscarUsuario);
+            Task task = new Task(MostrarMensaje);
             task.Start();
-            MessageBox.Show(mensaje);
-            Thread.Sleep(2000);
+           
+            Thread.Sleep(1000);
 
         }
 

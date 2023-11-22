@@ -16,7 +16,7 @@ namespace PrimerParcial
     {
         #region  Atributos
 
-        public int id;
+        private int id;
         public int puntosAtaque;
         public int puntosDefensa;
 
@@ -71,6 +71,7 @@ namespace PrimerParcial
         {
            return ($"{this.nombre} realiza un poderoso ataque con su espada.");
         }
+
         public override bool Equals(object? obj)
         {
             bool rst = false;
@@ -83,6 +84,8 @@ namespace PrimerParcial
             return rst;
 
         }
+
+
         public override string ToString()
         {
             StringBuilder sb = new();
@@ -100,7 +103,7 @@ namespace PrimerParcial
             {
                 SqlCommand sqlComando = new SqlCommand();
                 sqlComando.CommandType = System.Data.CommandType.Text;
-                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,ataque,defensa FROM Personaje";
+                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,puntosAtaque,puntosDefensa FROM Guerrero";
                 sqlComando.Connection = conexion;
                 conexion.Open();
                 lector = sqlComando.ExecuteReader();
@@ -111,8 +114,8 @@ namespace PrimerParcial
                     personaje.Nombre = lector[1].ToString();
                     personaje.Nivel = (int)lector["nivel"];
                     personaje.TipoPersonaje = EPersonajes.guerrero;
-                    personaje.Ataque = (int)lector["ataque"];
-                    personaje.Defensa = (int)lector["defensa"];
+                    personaje.Ataque = (int)lector["puntosAtaque"];
+                    personaje.Defensa = (int)lector["puntosDefensa"];
 
 
                     lista += personaje;
@@ -125,7 +128,8 @@ namespace PrimerParcial
             catch (Exception e)
             {
 
-
+                lista.mensaje = $"Error al traer los datos. Error: {e}";
+                
             }
             finally
             {

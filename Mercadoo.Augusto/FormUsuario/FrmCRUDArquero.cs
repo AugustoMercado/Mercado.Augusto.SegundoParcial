@@ -18,6 +18,7 @@ namespace FormUsuario
         public Arquero arquero;
         private int id;
         private Mensaje mensaje;
+        private bool camposLlenos;
         #endregion
 
         #region Constructores
@@ -26,10 +27,13 @@ namespace FormUsuario
             InitializeComponent();
             this.ConfigurarForm();
             this.mensaje = MostrarMensaje;
+            this.camposLlenos = false;
         }
 
         public FrmCRUDArquero(Arquero arquero) : this()
         {
+            this.camposLlenos = true;
+            this.id = arquero.ID;
             base.txtNombre.Text = arquero.nombre;
             base.txtNivel.Text = arquero.nivel.ToString();
             this.txtVelocidad.Text = arquero.puntosVelocidad.ToString();
@@ -58,7 +62,7 @@ namespace FormUsuario
             int resultPuntosVelocidad = ValidarEntero(this.txtVelocidad.Text);
             int resultPrecision = ValidarEntero(this.txtPrecision.Text);
 
-            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
+            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1 || this.camposLlenos == true)
             {
                 if (this.id > 0 && resultNivel != -1 && resultPuntosVelocidad != -1 && resultPrecision != -1)
                 {

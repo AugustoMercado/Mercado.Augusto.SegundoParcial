@@ -13,7 +13,7 @@ namespace PrimerParcial
 
         public Emagia tipoMagia;
         public int puntosMagia;
-        public int id;
+        private int id;
         #endregion
 
         public int ID { get { return this.id; } set { this.id = value; } }
@@ -128,6 +128,7 @@ namespace PrimerParcial
             catch (Exception e)
             {
 
+                lista.mensaje = $"Error al traer los datos. Error: {e}";
 
             }
             finally

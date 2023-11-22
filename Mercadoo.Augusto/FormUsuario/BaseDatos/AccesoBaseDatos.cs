@@ -115,7 +115,7 @@ namespace FormUsuario.BaseDatos
             {
                 this.sqlComando = new SqlCommand();
                 this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = "update Personaje SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
+                this.sqlComando.CommandText = "update Guerrero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
                 this.sqlComando.Parameters.AddWithValue("@nombre", p.nombre);
                 this.sqlComando.Parameters.AddWithValue("@nivel", p.nivel);
                 this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", p.TipoPersonaje.ToString());
@@ -172,7 +172,7 @@ namespace FormUsuario.BaseDatos
                 this.sqlComando.Parameters.AddWithValue("@nivel", m.nivel);
                 this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", m.tipoPersonaje.ToString());
                 this.sqlComando.Parameters.AddWithValue("@tipoMagia", m.tipoMagia.ToString());
-                this.sqlComando.Parameters.AddWithValue("@puntosMagia", m.puntosMagia);
+                this.sqlComando.Parameters.AddWithValue("@puntosMagia", m.PuntosMagia);
                 this.sqlComando.Parameters.AddWithValue("@id", m.ID);
 
                 this.sqlComando.Connection = this.conexion;
@@ -219,7 +219,7 @@ namespace FormUsuario.BaseDatos
             {
                 this.sqlComando = new SqlCommand();
                 this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = "update Mago SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosPrecision = @puntosPrecision, puntosVelocidad = @puntosVelocidad WHERE id = @id";
+                this.sqlComando.CommandText = "update Arquero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosPrecision = @puntosPrecision, puntosVelocidad = @puntosVelocidad WHERE id = @id";
                 this.sqlComando.Parameters.AddWithValue("@nombre", a.nombre);
                 this.sqlComando.Parameters.AddWithValue("@nivel", a.nivel);
                 this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", a.tipoPersonaje.ToString());

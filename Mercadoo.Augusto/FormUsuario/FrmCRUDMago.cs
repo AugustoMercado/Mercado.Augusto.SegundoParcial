@@ -20,6 +20,7 @@ namespace FormUsuario
         private static Emagia magia;
         private int id;
         private Mensaje mensaje;
+        private bool camposLlenos;
         #endregion
 
         #region  Constructores
@@ -27,11 +28,13 @@ namespace FormUsuario
         {
             InitializeComponent();
             this.ConfigurarForm();
+            this.camposLlenos = false;
         }
 
         public FrmCRUDMago(Mago prod) : this()
         {
-
+            this.camposLlenos = true;
+            this.id = prod.ID;
             base.txtNombre.Text = prod.nombre;
             base.txtNivel.Text = prod.nivel.ToString();
             this.txtPuntosMagia.Text = prod.puntosMagia.ToString();
@@ -77,7 +80,7 @@ namespace FormUsuario
                     break;
             }
 
-            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosMagia != -1 && tipoMagia != -1)
+            if (txtNombre.Text != string.Empty && txtNivel != null && resultNivel != -1 && resultPuntosMagia != -1 && tipoMagia != -1 || this.camposLlenos == true)
             {
                 if (this.id > 0 && resultNivel != -1 && resultPuntosMagia != -1)
                 {
