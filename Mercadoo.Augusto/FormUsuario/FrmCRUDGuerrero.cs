@@ -49,6 +49,7 @@ namespace FormUsuario
             this.Text = "Formulario Guerreo";
             this.txtNombre.Focus();
             this.ActualizarLabel(EPersonajes.guerrero);
+            this.EjecutarCambiarColor(Color.DarkRed);
 
         }
         private void btnAceptarGuerrero_Click(object sender, EventArgs e)

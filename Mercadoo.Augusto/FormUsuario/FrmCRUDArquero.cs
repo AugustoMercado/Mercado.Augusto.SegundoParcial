@@ -48,6 +48,7 @@ namespace FormUsuario
             this.Text = "Formulario Arquero";
             this.txtNombre.Focus();
             this.ActualizarLabel(EPersonajes.arquero);
+            this.EjecutarCambiarColor(Color.DarkGreen);
 
         }
         private void btnAceptarArquero_Click(object sender, EventArgs e)

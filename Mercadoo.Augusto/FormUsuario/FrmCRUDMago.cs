@@ -51,6 +51,7 @@ namespace FormUsuario
             this.txtNombre.Focus();
             this.mensaje = MostrarMensaje;
             this.ActualizarLabel(EPersonajes.mago);
+            this.EjecutarCambiarColor(Color.Aquamarine);
 
         }
         private void btnAceptarMago_Click(object sender, EventArgs e)
