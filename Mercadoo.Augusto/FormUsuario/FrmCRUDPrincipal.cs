@@ -16,11 +16,15 @@ namespace FormUsuario
 
         public string nombre;
         public int nivel;
+        public CancellationTokenSource cancellationSource;
+        public CancellationToken cancellationToken;
 
         public FrmCRUDPrincipal()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.cancellationSource = new CancellationTokenSource();
+            this.cancellationToken = this.cancellationSource.Token;
 
         }
 
@@ -62,6 +66,39 @@ namespace FormUsuario
             return rst;
         }
 
+        /// <summary>
+        /// Metodo para actualizar los label Nombre y Nivel.
+        /// </summary>
+        /// <param name="personaje">Personaje al cual se esta agregando.</param>
+        public void ActualizarLabel(EPersonajes personaje)
+        {
+            if (this.lblNombre.InvokeRequired)
+            {
+
+                DelegadoPersonaje prs = new(ActualizarLabel);
+                //object[] parametros = { personaje };
+
+                this.lblNombre.Invoke(prs, personaje);
+            }
+            else
+            {
+                if (this.cancellationToken.IsCancellationRequested)
+                {
+                    Thread.Sleep(1000);
+                    this.lblNombre.Text = "Nombre ";
+                    this.lblNivel.Text = "Nivel ";
+                }
+                else
+                {
+                    Thread.Sleep(1000);
+                    this.lblNombre.Text = "Nombre del " + personaje.ToString();
+                    this.lblNivel.Text = "Nivel del " + personaje.ToString();
+                }
+
+
+            }
+
+        }
 
 
     }
