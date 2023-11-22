@@ -47,7 +47,7 @@ namespace FormUsuario
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Formulario Arquero";
             this.txtNombre.Focus();
-
+            this.ActualizarLabel(EPersonajes.arquero);
 
         }
         private void btnAceptarArquero_Click(object sender, EventArgs e)
@@ -93,6 +93,7 @@ namespace FormUsuario
         private void BtnCancelarArquero_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+            this.cancellationSource.Cancel();
         }
 
 

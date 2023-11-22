@@ -50,6 +50,7 @@ namespace FormUsuario
             this.Text = "Formulario Mago";
             this.txtNombre.Focus();
             this.mensaje = MostrarMensaje;
+            this.ActualizarLabel(EPersonajes.mago);
 
         }
         private void btnAceptarMago_Click(object sender, EventArgs e)
@@ -109,6 +110,7 @@ namespace FormUsuario
         private void btnCancelarMago_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+            this.cancellationSource.Cancel();
         }
         #endregion
     }

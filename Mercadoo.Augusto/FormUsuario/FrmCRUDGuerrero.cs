@@ -27,6 +27,7 @@ namespace FormUsuario
             InitializeComponent();
             this.ConfigurarForm();
             this.mensaje = MostrarMensaje;
+        
         }
 
         public FrmCRUDGuerrero(Guerrero prod) : this()
@@ -47,7 +48,7 @@ namespace FormUsuario
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Formulario Guerreo";
             this.txtNombre.Focus();
-
+            this.ActualizarLabel(EPersonajes.guerrero);
 
         }
         private void btnAceptarGuerrero_Click(object sender, EventArgs e)
@@ -96,6 +97,7 @@ namespace FormUsuario
         private void BtnCancelarGuerrero_Click_1(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+            this.cancellationSource.Cancel();
         }
         #endregion
     }
