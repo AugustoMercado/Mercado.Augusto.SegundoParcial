@@ -51,7 +51,7 @@ namespace FormUsuario
             //this.path = $"EjercitoDe{usuario.apellido}.xml";
             this.usuario = usuarioActual;
             this.ConfigurarForm();
-            this.datosG.Invoke();
+            this.EjecutarTask(TraerDatos,"Cargando....");
             this.MostrarCRUD(this.usuario);
             this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
             this.ActualizarVisualizador();
@@ -455,6 +455,23 @@ namespace FormUsuario
         private void MostrarMensaje(object sender, Personaje e)
         {
             MessageBox.Show(e.Atacar());
+
+        }
+
+        private void TraerDatos()
+        {
+
+            this.datosG.Invoke();
+
+        }
+
+        private void EjecutarTask(Action metodo, string mensaje)
+
+        {
+            Task task = new Task(metodo);
+            task.Start();
+            MessageBox.Show(mensaje);
+            Thread.Sleep(2000);
 
         }
 

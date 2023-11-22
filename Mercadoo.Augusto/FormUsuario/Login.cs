@@ -62,20 +62,8 @@ namespace FormUsuario
 
             if (this.intentos < 3)
             {
-                foreach (LogearUsuario user in listaUsuarios)
-                {
-
-                    if (this.textBox1.Text == user.correo && this.textBox2.Text == user.clave)
-                    {
-                        //Si coiciden el correo y la clave con algun usuario, se ingresara al Forms.
-                        this.Hide();
-                        FrmPrincipal frmPrincipal = new(user);
-                        frmPrincipal.ShowDialog();
-                        break;
-                    }
-
-                }
-                MessageBox.Show("Error de clave/correo.");
+                this.EjecutarTask("Buscando usuario...");
+                ///MessageBox.Show("Error de clave/correo.");
             }
             else 
             {
@@ -85,6 +73,35 @@ namespace FormUsuario
             }
               this.intentos++;
    
+        }
+
+        private void BuscarUsuario()
+        {
+            foreach (LogearUsuario user in listaUsuarios)
+            {
+
+                if (this.textBox1.Text == user.correo && this.textBox2.Text == user.clave)
+                {
+                    //Si coiciden el correo y la clave con algun usuario, se ingresara al Forms.
+                    this.Hide();
+                    FrmPrincipal frmPrincipal = new(user);
+                    frmPrincipal.ShowDialog();
+                    break;
+                }
+
+            }
+            MessageBox.Show("Error de clave/correo.");
+        }
+
+
+        private void EjecutarTask(string mensaje)
+
+        {
+            Task task = new Task(BuscarUsuario);
+            task.Start();
+            MessageBox.Show(mensaje);
+            Thread.Sleep(2000);
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
