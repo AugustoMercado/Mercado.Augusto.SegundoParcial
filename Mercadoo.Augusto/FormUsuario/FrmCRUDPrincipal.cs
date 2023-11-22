@@ -67,6 +67,30 @@ namespace FormUsuario
         }
 
         /// <summary>
+        /// Metodo para ejecutar el un hilo el metodo cambiarColor
+        /// </summary>
+        /// <param name="nuevoColor">color a cambiar la interface</param>
+        public void EjecutarCambiarColor(Color nuevoColor)
+        {
+      
+            Thread hiloColor = new Thread(() => CambiarColorEnHilo(nuevoColor));
+            hiloColor.Start();
+        }
+
+        /// <summary>
+        /// Cambia el color de la interfaz
+        /// </summary>
+        /// <param name="nuevoColor">color de la interfaz</param>
+        private void CambiarColorEnHilo(Color nuevoColor)
+        {
+            // Espera para cambiar el color
+            Thread.Sleep(1000);
+
+     
+            this.Invoke(new Action(() =>{this.BackColor = nuevoColor;}));
+        }
+
+        /// <summary>
         /// Metodo para actualizar los label Nombre y Nivel.
         /// </summary>
         /// <param name="personaje">Personaje al cual se esta agregando.</param>
