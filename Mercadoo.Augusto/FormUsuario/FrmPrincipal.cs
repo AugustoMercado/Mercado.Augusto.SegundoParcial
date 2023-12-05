@@ -21,6 +21,7 @@ using System.Diagnostics;
 using FormUsuario.BaseDatos;
 using FormUsuario.Interfaces;
 using FormUsuario.ListaGenerica;
+using FormUsuario.Excepciones;
 
 namespace FormUsuario
 {
@@ -578,26 +579,36 @@ namespace FormUsuario
 
             try
             {
-                using (XmlTextReader reader = new XmlTextReader($@"..\..\..\{this.path}"))
+                try
                 {
 
-                    XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
-
-                    List<Personaje> personajes = (List<Personaje>?)ser.Deserialize(reader);
-
-                    foreach (Personaje per in personajes)
+                    using (XmlTextReader reader = new XmlTextReader($@"..\..\..\{this.path}"))
                     {
 
-                        this.personajes += per;
+                        XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+
+                        List<Personaje> personajes = (List<Personaje>?)ser.Deserialize(reader);
+
+                        foreach (Personaje per in personajes)
+                        {
+
+                            this.personajes += per;
+                        }
+                        this.MostrarBoton();
+                        this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
+                        this.ActualizarVisualizador();
                     }
-                    this.MostrarBoton();
-                    this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
-                    this.ActualizarVisualizador();
+
+                }
+                catch (Exception exepcion) 
+                {
+                    throw new MiExcepcion("Error al Leer el archivo....", exepcion);
                 }
 
             }
-            catch (Exception ex)
+            catch (MiExcepcion ex)
             {
+                MessageBox.Show($"{ex} {this.path}");
                 //MessageBox.Show($"Error al Deserializar los Datos..... Error {ex}");
                 //Console.WriteLine("Error al Deserializar los Datos");
             }
@@ -614,18 +625,28 @@ namespace FormUsuario
 
                 try
                 {
-                    using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{this.path}", Encoding.UTF8))
+                    try
                     {
-                        XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
-                        ser.Serialize(writer, this.personajes.Miembros);
-                        this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
-                        this.ActualizarVisualizador();
+
+                        using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{this.path}", Encoding.UTF8))
+                        {
+                            XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+                            ser.Serialize(writer, this.personajes.Miembros);
+                            this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
+                            this.ActualizarVisualizador();
+                        }
+
+                    }
+                    catch (Exception exepcion)
+                    {
+                        throw new MiExcepcion("Error al escribir el archivo....", exepcion);
                     }
                 }
-                catch (Exception exepcion)
+                catch (MiExcepcion exepcion)
                 {
                     ///MessageBox.Show($"Error al Serealizar los Datos..... Error {exepcion}");
-                    Console.WriteLine($"Error al Serealizar los Datos..... Error { exepcion}");
+                    MessageBox.Show($"{exepcion} {this.path}");
+                    //Console.WriteLine($"Error al Serealizar los Datos..... Error { exepcion}");
                 }
 
             }

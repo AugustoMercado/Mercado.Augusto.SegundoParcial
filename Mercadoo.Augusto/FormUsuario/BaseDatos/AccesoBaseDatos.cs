@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data.Common;
 using PrimerParcial;
 using Microsoft.Data.SqlClient;
+using FormUsuario.Excepciones;
 
 namespace FormUsuario.BaseDatos
 {
@@ -113,32 +114,42 @@ namespace FormUsuario.BaseDatos
             bool retorno = false;
             try
             {
-                this.sqlComando = new SqlCommand();
-                this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = "update Guerrero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
-                this.sqlComando.Parameters.AddWithValue("@nombre", p.nombre);
-                this.sqlComando.Parameters.AddWithValue("@nivel", p.nivel);
-                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", p.TipoPersonaje.ToString());
-                this.sqlComando.Parameters.AddWithValue("@ataque", p.Ataque);
-                this.sqlComando.Parameters.AddWithValue("@defensa", p.Defensa);
-                this.sqlComando.Parameters.AddWithValue("@id", p.ID);
-
-                this.sqlComando.Connection = this.conexion;
-                this.conexion.Open();
-
-                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
-                if (filaAfectadas == 1)
+                try
                 {
 
-                    retorno = true;
+                    this.sqlComando = new SqlCommand();
+                    this.sqlComando.CommandType = System.Data.CommandType.Text;
+                    this.sqlComando.CommandText = "update Guerrero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
+                    this.sqlComando.Parameters.AddWithValue("@nombre", p.nombre);
+                    this.sqlComando.Parameters.AddWithValue("@nivel", p.nivel);
+                    this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", p.TipoPersonaje.ToString());
+                    this.sqlComando.Parameters.AddWithValue("@ataque", p.Ataque);
+                    this.sqlComando.Parameters.AddWithValue("@defensa", p.Defensa);
+                    this.sqlComando.Parameters.AddWithValue("@id", p.ID);
+
+                    this.sqlComando.Connection = this.conexion;
+                    this.conexion.Open();
+
+                    int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                    if (filaAfectadas == 1)
+                    {
+
+                        retorno = true;
+                    }
+
+
+                }
+                catch (Exception e) 
+                {
+                    throw new MiExcepcion("Error al modificar....");
                 }
 
 
             }
-            catch (Exception e)
+            catch (MiExcepcion e)
             {
 
-                retorno = false;
+                MessageBox.Show($"{e} a {p.nombre} de la Base De Datos.");
             }
             finally
             {
@@ -165,32 +176,42 @@ namespace FormUsuario.BaseDatos
             bool retorno = false;
             try
             {
-                this.sqlComando = new SqlCommand();
-                this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = "update Mago SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, tipoMagia = @tipoMagia, puntosMagia = @puntosMagia WHERE id = @id";
-                this.sqlComando.Parameters.AddWithValue("@nombre", m.nombre);
-                this.sqlComando.Parameters.AddWithValue("@nivel", m.nivel);
-                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", m.tipoPersonaje.ToString());
-                this.sqlComando.Parameters.AddWithValue("@tipoMagia", m.tipoMagia.ToString());
-                this.sqlComando.Parameters.AddWithValue("@puntosMagia", m.PuntosMagia);
-                this.sqlComando.Parameters.AddWithValue("@id", m.ID);
+                try 
+                { 
+                    this.sqlComando = new SqlCommand();
+                    this.sqlComando.CommandType = System.Data.CommandType.Text;
+                    this.sqlComando.CommandText = "update Mago SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, tipoMagia = @tipoMagia, puntosMagia = @puntosMagia WHERE id = @id";
+                    this.sqlComando.Parameters.AddWithValue("@nombre", m.nombre);
+                    this.sqlComando.Parameters.AddWithValue("@nivel", m.nivel);
+                    this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", m.tipoPersonaje.ToString());
+                    this.sqlComando.Parameters.AddWithValue("@tipoMagia", m.tipoMagia.ToString());
+                    this.sqlComando.Parameters.AddWithValue("@puntosMagia", m.PuntosMagia);
+                    this.sqlComando.Parameters.AddWithValue("@id", m.ID);
 
-                this.sqlComando.Connection = this.conexion;
-                this.conexion.Open();
+                    this.sqlComando.Connection = this.conexion;
+                    this.conexion.Open();
 
-                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
-                if (filaAfectadas == 1)
+                    int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                    if (filaAfectadas == 1)
+                    {
+
+                        retorno = true;
+                    }
+                
+                } 
+                catch(Exception ex) 
                 {
 
-                    retorno = true;
+                    throw new MiExcepcion("Error al modificar....");
+
                 }
 
 
             }
-            catch (Exception e)
+            catch (MiExcepcion e)
             {
 
-                retorno = false;
+                MessageBox.Show($"{e} a {m.nombre} de la Base De Datos.");
             }
             finally
             {
@@ -217,32 +238,41 @@ namespace FormUsuario.BaseDatos
             bool retorno = false;
             try
             {
-                this.sqlComando = new SqlCommand();
-                this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = "update Arquero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosPrecision = @puntosPrecision, puntosVelocidad = @puntosVelocidad WHERE id = @id";
-                this.sqlComando.Parameters.AddWithValue("@nombre", a.nombre);
-                this.sqlComando.Parameters.AddWithValue("@nivel", a.nivel);
-                this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", a.tipoPersonaje.ToString());
-                this.sqlComando.Parameters.AddWithValue("@puntosPrecision", a.PuntosPrecision);
-                this.sqlComando.Parameters.AddWithValue("@puntosVelocidad", a.PuntosVelocidad);
-                this.sqlComando.Parameters.AddWithValue("@id", a.ID);
-
-                this.sqlComando.Connection = this.conexion;
-                this.conexion.Open();
-
-                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
-                if (filaAfectadas == 1)
+                try
                 {
 
-                    retorno = true;
+                    this.sqlComando = new SqlCommand();
+                    this.sqlComando.CommandType = System.Data.CommandType.Text;
+                    this.sqlComando.CommandText = "update Arquero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosPrecision = @puntosPrecision, puntosVelocidad = @puntosVelocidad WHERE id = @id";
+                    this.sqlComando.Parameters.AddWithValue("@nombre", a.nombre);
+                    this.sqlComando.Parameters.AddWithValue("@nivel", a.nivel);
+                    this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", a.tipoPersonaje.ToString());
+                    this.sqlComando.Parameters.AddWithValue("@puntosPrecision", a.PuntosPrecision);
+                    this.sqlComando.Parameters.AddWithValue("@puntosVelocidad", a.PuntosVelocidad);
+                    this.sqlComando.Parameters.AddWithValue("@id", a.ID);
+
+                    this.sqlComando.Connection = this.conexion;
+                    this.conexion.Open();
+
+                    int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                    if (filaAfectadas == 1)
+                    {
+
+                        retorno = true;
+                    }
+
                 }
-
-
+                catch (Exception e)
+                {
+                    throw new MiExcepcion("Error al modificar....");
+                   
+                }
             }
-            catch (Exception e)
+
+            catch (MiExcepcion e)
             {
 
-                retorno = false;
+                MessageBox.Show($"{e} a {a.nombre} de la Base De Datos.");
             }
             finally
             {
