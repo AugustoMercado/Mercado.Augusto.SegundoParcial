@@ -17,10 +17,11 @@ namespace FormUsuario
     {
         #region  Atributos
         public Mago personaje;
-        private static Emagia magia;
+        private Emagia magia;
         private int id;
         private Mensaje mensaje;
         private bool camposLlenos;
+        private int tipoMagia;
         #endregion
 
         #region  Constructores
@@ -29,6 +30,7 @@ namespace FormUsuario
             InitializeComponent();
             this.ConfigurarForm();
             this.camposLlenos = false;
+            this.tipoMagia = -1;
         }
 
         public FrmCRUDMago(Mago prod) : this()
@@ -38,7 +40,26 @@ namespace FormUsuario
             base.txtNombre.Text = prod.nombre;
             base.txtNivel.Text = prod.nivel.ToString();
             this.txtPuntosMagia.Text = prod.puntosMagia.ToString();
-            this.cmbTipoMagia.Text = prod.tipoMagia.ToString();
+            Emagia magia = prod.Magia;
+            switch (magia)
+            {
+                case Emagia.Hielo:
+                    this.tipoMagia = 0;
+                    break;
+                case Emagia.Fuego:
+                    this.tipoMagia = 1;
+                    break;
+                case Emagia.Tierra:
+                    this.tipoMagia = 2;
+                    break;
+                case Emagia.Curación:
+                    this.tipoMagia = 3;
+                    break;
+            }
+            this.cmbTipoMagia.SelectedIndex = tipoMagia;
+            this.cmbTipoMagia.Enabled = false;
+
+      
 
 
         }
@@ -62,21 +83,20 @@ namespace FormUsuario
             string nombre = base.txtNombre.Text;
             int resultNivel = ValidarEntero(base.txtNivel.Text);
             int resultPuntosMagia = ValidarEntero(txtPuntosMagia.Text);
-            int tipoMagia = -1;
-            tipoMagia = this.cmbTipoMagia.SelectedIndex;
+            this.tipoMagia = this.cmbTipoMagia.SelectedIndex;
             switch (tipoMagia)
             {
                 case 0:
-                    magia = Emagia.Hielo;
+                    this.magia = Emagia.Hielo;
                     break;
                 case 1:
-                    magia = Emagia.Fuego;
+                    this.magia = Emagia.Fuego;
                     break;
                 case 2:
-                    magia = Emagia.Tierra;
+                    this.magia = Emagia.Tierra;
                     break;
                 case 3:
-                    magia = Emagia.Curación;
+                    this.magia = Emagia.Curación;
                     break;
             }
 
@@ -106,7 +126,7 @@ namespace FormUsuario
         public void MostrarMensaje(string mensaje)
         {
 
-            MessageBox.Show(mensaje);
+            MessageBox.Show(mensaje, "Error");
 
 
         }
