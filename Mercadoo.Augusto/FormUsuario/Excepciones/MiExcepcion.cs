@@ -6,9 +6,21 @@ using System.Threading.Tasks;
 
 namespace FormUsuario.Excepciones
 {
-    internal class MiExcepcion
+    public class MiExcepcion:Exception
     {
+        public MiExcepcion()
+        {
+            
+        }
+        public MiExcepcion(string mensaje): base (mensaje)
+        {
+            
+        }
 
+        public MiExcepcion(string message, Exception exception) : base(message, exception) 
+        {
+        
+        }
 
     }
 }
