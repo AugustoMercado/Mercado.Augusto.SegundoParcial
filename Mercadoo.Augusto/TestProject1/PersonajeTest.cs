@@ -63,5 +63,34 @@ namespace TestProject1
 
         }
 
+        [TestMethod]
+        public void VerificarMagoIguales_true()
+        {
+            // Arrange
+            Mago m1 = new Mago(Emagia.Hielo, 45, 20, "Mago1");
+            Mago m2 = new Mago(Emagia.Hielo, 45, 20, "Mago1");
+
+            // Act
+            bool resultado = m1.Equals(m2);
+
+            // Assert
+            Assert.IsTrue(resultado);
+
+        }
+        [TestMethod]
+        public void VerificarMagoIguales_false()
+        {
+            // Arrange
+            Mago m1 = new Mago(Emagia.Hielo, 45, 20, "Mago1");
+            Mago m2 = new Mago(Emagia.Fuego, 45, 20, "Mago2");
+
+            // Act
+            bool resultado = m1.Equals(m2);
+
+            // Assert
+            Assert.IsFalse(resultado);
+
+        }
+
     }
 }
