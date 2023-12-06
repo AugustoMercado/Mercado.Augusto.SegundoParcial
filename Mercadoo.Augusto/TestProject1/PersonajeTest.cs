@@ -34,5 +34,34 @@ namespace TestProject1
             Assert.IsFalse(resultado);
 
         }
+        [TestMethod]
+        public void VerificarArquerosIguales_true()
+        {
+            // Arrange
+            Arquero a1 = new Arquero(14, 10, 15, "Arquero1");
+            Arquero a2 = new Arquero(14, 10, 15, "Arquero1");
+
+            // Act
+            bool resultado = a1.Equals(a2);
+
+            // Assert
+            Assert.IsTrue(resultado);
+
+        }
+        [TestMethod]
+        public void VerificarArquerosIguales_false()
+        {
+            // Arrange
+            Arquero a1 = new Arquero(14, 10, 15, "Arquero1");
+            Arquero a2 = new Arquero(14, 10, 15, "Arquero2");
+
+            // Act
+            bool resultado = a1.Equals(a2);
+
+            // Assert
+            Assert.IsFalse(resultado);
+
+        }
+
     }
 }
