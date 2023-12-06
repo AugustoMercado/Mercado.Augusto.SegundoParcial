@@ -53,7 +53,7 @@ namespace FormUsuario
             //this.path = $"EjercitoDe{usuario.apellido}.xml";
             this.usuario = usuarioActual;
             this.ConfigurarForm();
-            this.EjecutarTask(TraerDatos,"Cargando....");
+            this.EjecutarTask(TraerDatos, "Cargando....");
             this.MostrarCRUD(this.usuario);
             this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
             this.ActualizarVisualizador();
@@ -238,7 +238,7 @@ namespace FormUsuario
                 if (crudMago.DialogResult == DialogResult.OK)
                 {
 
-             
+
                     DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
@@ -269,7 +269,7 @@ namespace FormUsuario
                         retorno = guerrero.EliminarPersonaje(personajeG, personajeG.ID);
                         //retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
                     }
-               
+
                     this.escribirlog.mensaje = this.personajes.mensaje;
                 }
 
@@ -285,7 +285,7 @@ namespace FormUsuario
                 if (crudArquero.DialogResult == DialogResult.OK)
                 {
 
-                 
+
                     DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
@@ -317,7 +317,7 @@ namespace FormUsuario
             if (result == DialogResult.OK)
             {
                 this.escribirlog.mensaje = "Cerro sesion.";
-                
+
                 this.ActualizarVisualizador();
                 Application.Exit();
             }
@@ -371,10 +371,10 @@ namespace FormUsuario
             {
                 mensaje = "Ordenar de forma descendente";
                 this.personajes.miembros.Reverse();
-                
+
 
             }
-            else 
+            else
             {
                 mensaje = "Ordenar de forma ascendente";
 
@@ -406,7 +406,7 @@ namespace FormUsuario
         private void btnOrdenar_Click(object sender, EventArgs e)
         {
             string mensaje = "";
-            
+
             int metodoOrdenar = this.cbOrdenar.SelectedIndex;
             if (OrdenPorNivel.Checked)
             {
@@ -428,7 +428,7 @@ namespace FormUsuario
 
             }
             this.escribirlog.mensaje = mensaje;
-            this.ActualizarVisualizador(); 
+            this.ActualizarVisualizador();
             this.ActualizarEjercito();
             metodoOrdenar = -1;
         }
@@ -501,9 +501,9 @@ namespace FormUsuario
         /// Dependiendo del cargo del usuario, le podra dejar hacer algunas cosas.
         /// </summary>
         /// <param name="usuario">usuario logeado</param>
-        private void MostrarCRUD(LogearUsuario usuario) 
+        private void MostrarCRUD(LogearUsuario usuario)
         {
-            switch (usuario.perfil) 
+            switch (usuario.perfil)
             {
                 case "vendedor":
                     btnAgregar.Enabled = false;
@@ -511,20 +511,20 @@ namespace FormUsuario
                     btnEliminar.Enabled = false;
                     cbOrdenar.Enabled = false;
                     btnOrdenar.Enabled = false;
-                    break; 
+                    break;
                 case "supervisor":
                     btnAgregar.Enabled = true;
                     btnModificar.Enabled = true;
                     btnEliminar.Enabled = false;
                     break;
-               default:
+                default:
                     btnAgregar.Enabled = true;
                     btnModificar.Enabled = true;
                     btnEliminar.Enabled = true;
                     break;
             }
-        
-        
+
+
         }
 
         public void MostrarMensaje(string mensajeTrue, string mensajeFalse, bool respuesta)
@@ -576,39 +576,52 @@ namespace FormUsuario
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-
+            string filePath = "";
             try
             {
-                try
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
+                    openFileDialog.Title = "Seleccionar Archivo XML";
+                    openFileDialog.Filter = "Archivos XML|*.xml|Todos los archivos|*.*";
+                    openFileDialog.InitialDirectory = $@"..\..\..\{this.path}";
 
-                    using (XmlTextReader reader = new XmlTextReader($@"..\..\..\{this.path}"))
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
+                        filePath = openFileDialog.FileName;
 
-                        XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
-
-                        List<Personaje> personajes = (List<Personaje>?)ser.Deserialize(reader);
-
-                        foreach (Personaje per in personajes)
+                        try
                         {
 
-                            this.personajes += per;
+                            using (XmlTextReader reader = new XmlTextReader($@"..\..\..\{filePath}"))
+                            {
+
+                                XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+
+                                List<Personaje> personajes = (List<Personaje>?)ser.Deserialize(reader);
+
+                                foreach (Personaje per in personajes)
+                                {
+
+                                    this.personajes += per;
+                                }
+
+                                this.MostrarBoton();
+                                this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
+                                this.ActualizarVisualizador();
+                            }
+
                         }
-                        this.MostrarBoton();
-                        this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
-                        this.ActualizarVisualizador();
+
+                        catch (Exception exepcion)
+                        {
+                            throw new MiExcepcion("Error al leer el archivo....", exepcion);
+                        }
                     }
-
                 }
-                catch (Exception exepcion) 
-                {
-                    throw new MiExcepcion("Error al Leer el archivo....", exepcion);
-                }
-
             }
             catch (MiExcepcion ex)
             {
-                MessageBox.Show($"{ex} {this.path}");
+                MessageBox.Show($"{ex} {filePath}");
                 //MessageBox.Show($"Error al Deserializar los Datos..... Error {ex}");
                 //Console.WriteLine("Error al Deserializar los Datos");
             }
@@ -622,40 +635,78 @@ namespace FormUsuario
         {
             if (this.personajes.miembros.Count > 0)
             {
-
+                string filePath = "";
                 try
                 {
-                    try
+                    using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                     {
-
-                        using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{this.path}", Encoding.UTF8))
+    
+                        saveFileDialog.Title = "Guardar Archivo XML";
+                        saveFileDialog.Filter = "Archivos XML|*.xml|Todos los archivos|*.*";
+                        saveFileDialog.FileName = this.path;
+                        saveFileDialog.InitialDirectory = @"..\..\..\..\";
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
                         {
-                            XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
-                            ser.Serialize(writer, this.personajes.Miembros);
-                            this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
-                            this.ActualizarVisualizador();
-                        }
+                            filePath = saveFileDialog.FileName;
 
-                    }
-                    catch (Exception exepcion)
-                    {
-                        throw new MiExcepcion("Error al escribir el archivo....", exepcion);
+                            try
+                            {
+                                using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{filePath}", Encoding.UTF8))
+                                {
+                                    XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+                                    ser.Serialize(writer, this.personajes.Miembros);
+                                    this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
+                                    this.ActualizarVisualizador();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new MiExcepcion("Error al escribir el archivo....", ex);
+                            }
+                        }
                     }
                 }
-                catch (MiExcepcion exepcion)
+                catch (MiExcepcion excepcion)
                 {
-                    ///MessageBox.Show($"Error al Serealizar los Datos..... Error {exepcion}");
-                    MessageBox.Show($"{exepcion} {this.path}");
-                    //Console.WriteLine($"Error al Serealizar los Datos..... Error { exepcion}");
+                    //MessageBox.Show($"Error al serializar y guardar los datos: {ex.Message}", "Error");
+                    MessageBox.Show($"{excepcion} {filePath}");
+                    // Puedes agregar más detalles al mensaje de error si es necesario
                 }
+
+
 
             }
 
         }
 
 
-
-        #endregion
-
     }
 }
+
+//         try
+//                {
+//                    try
+//                    {
+
+//                        using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{this.path}", Encoding.UTF8))
+//                        {
+//                            XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+//        ser.Serialize(writer, this.personajes.Miembros);
+//                            this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
+//                            this.ActualizarVisualizador();
+//                        }
+
+//}
+//                    catch (Exception exepcion)
+//                    {
+//    throw new MiExcepcion("Error al escribir el archivo....", exepcion);
+//}
+//                }
+//                catch (MiExcepcion exepcion)
+//                {
+//    ///MessageBox.Show($"Error al Serealizar los Datos..... Error {exepcion}");
+//    MessageBox.Show($"{exepcion} {this.path}");
+//    //Console.WriteLine($"Error al Serealizar los Datos..... Error { exepcion}");
+//}
+
+        #endregion
