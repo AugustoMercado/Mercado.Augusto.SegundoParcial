@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Textlbl = new Label();
             SuspendLayout();
+            // 
+            // Textlbl
+            // 
+            Textlbl.AutoSize = true;
+            Textlbl.Location = new Point(12, 29);
+            Textlbl.Name = "Textlbl";
+            Textlbl.Size = new Size(51, 15);
+            Textlbl.TabIndex = 0;
+            Textlbl.Text = "mensaje";
             // 
             // FormEmergente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(337, 84);
+            Controls.Add(Textlbl);
             Name = "FormEmergente";
             Text = "FormEmergente";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label Textlbl;
     }
 }
