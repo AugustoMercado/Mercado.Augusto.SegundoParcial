@@ -128,5 +128,36 @@ namespace TestProject1
 
         }
 
+        [TestMethod]
+        public void VerificarSiYaEsta_True()
+        {
+            // Arrange
+            Ejercito ejercito = new Ejercito(2, "Iran");
+            Guerrero guerrero1 = new Guerrero(10, 10, 50, "Guerrero1");
+
+            // Act
+            ejercito += guerrero1;
+            ejercito += guerrero1; // Intentar agregar el mismo personaje nuevamente
+
+            // Assert
+            Assert.AreEqual(ejercito.Miembros.Count, 2);
+        }
+
+        [TestMethod]
+        public void VerificarSiYaEsta_False()
+        {
+            // Arrange
+            Ejercito ejercito = new Ejercito(2, "Iran");
+            Guerrero guerrero1 = new Guerrero(10, 10, 50, "Guerrero1");
+            Guerrero guerrero3 = new Guerrero(40, 20, 10, "Guerrero2");
+            // Act
+            ejercito += guerrero1;
+            ejercito += guerrero3; // Intentar agregar el mismo personaje nuevamente
+
+            // Assert
+            Assert.AreEqual(ejercito.Miembros.Count, 2);
+        }
+
+
     }
 }
