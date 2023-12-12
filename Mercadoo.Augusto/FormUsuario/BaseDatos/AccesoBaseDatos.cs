@@ -20,7 +20,8 @@ namespace FormUsuario.BaseDatos
 
         static AccesoBaseDatos()
         {
-            AccesoBaseDatos.cadenaConexion = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=parcialDB;Integrated Security=True;Trust Server Certificate=True";
+            //AccesoBaseDatos.cadenaConexion = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=parcialDB;Integrated Security=True;Trust Server Certificate=True";
+            AccesoBaseDatos.cadenaConexion = Properties.Resources.miConexion;
         }
 
         public AccesoBaseDatos()
@@ -67,27 +68,35 @@ namespace FormUsuario.BaseDatos
             bool retorno = false;
             try
             {
-                this.sqlComando = new SqlCommand();
-                this.sqlComando.CommandType = System.Data.CommandType.Text;
-                this.sqlComando.CommandText = cadena;
-
-
-                this.sqlComando.Connection = this.conexion;
-                this.conexion.Open();
-
-                int filaAfectadas = this.sqlComando.ExecuteNonQuery();
-                if (filaAfectadas == 1)
+                try
                 {
 
-                    retorno = true;
+                    this.sqlComando = new SqlCommand();
+                    this.sqlComando.CommandType = System.Data.CommandType.Text;
+                    this.sqlComando.CommandText = cadena;
+
+
+                    this.sqlComando.Connection = this.conexion;
+                    this.conexion.Open();
+
+                    int filaAfectadas = this.sqlComando.ExecuteNonQuery();
+                    if (filaAfectadas == 1)
+                    {
+
+                        retorno = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new MiExcepcion("Error al agregar....", e);
                 }
 
-
             }
-            catch (Exception e)
+            catch (MiExcepcion e)
             {
 
-                retorno = false;
+                MessageBox.Show($"{e.Message}");
+                
             }
             finally
             {
@@ -119,12 +128,12 @@ namespace FormUsuario.BaseDatos
 
                     this.sqlComando = new SqlCommand();
                     this.sqlComando.CommandType = System.Data.CommandType.Text;
-                    this.sqlComando.CommandText = "update Guerrero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, ataque = @ataque, defensa = @defensa WHERE id = @id";
+                    this.sqlComando.CommandText = "update Guerrero SET nombre = @nombre, nivel = @nivel, tipoPersonaje = @tipoPersonaje, puntosAtaque = @puntosAtaque, puntosDefensa = @puntosDefensa WHERE id = @id";
                     this.sqlComando.Parameters.AddWithValue("@nombre", p.nombre);
                     this.sqlComando.Parameters.AddWithValue("@nivel", p.nivel);
                     this.sqlComando.Parameters.AddWithValue("@tipoPersonaje", p.TipoPersonaje.ToString());
-                    this.sqlComando.Parameters.AddWithValue("@ataque", p.Ataque);
-                    this.sqlComando.Parameters.AddWithValue("@defensa", p.Defensa);
+                    this.sqlComando.Parameters.AddWithValue("@puntosAtaque", p.Ataque);
+                    this.sqlComando.Parameters.AddWithValue("@puntosDefensa", p.Defensa);
                     this.sqlComando.Parameters.AddWithValue("@id", p.ID);
 
                     this.sqlComando.Connection = this.conexion;

@@ -12,8 +12,7 @@ namespace FormUsuario.Interfaces
         /// Metodo para mostrar un mensaje.
         /// </summary>
         /// <param name="mensajeTrue">mensaje en caso de ser true</param>
-        /// <param name="mensajeFalse">mensaje en caso de ser false</param>
         /// <param name="respuesta">bool que nos indique que mensaje mostrar</param>
-        public void MostrarMensaje(string mensajeTrue, string mensajeFalse, bool respuesta);
+        public void MostrarMensaje(string mensajeTrue, bool respuesta);
     }
 }

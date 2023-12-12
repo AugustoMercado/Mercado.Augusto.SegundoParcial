@@ -61,10 +61,11 @@ namespace FormUsuario
         private void button1_Logear(object sender, EventArgs e)
         {
 
-            this.EjecutarTask();
             if (this.intentos < 3)
             {
+                this.EjecutarTask();
                 ///this.EjecutarTask("Buscando usuario...");
+                 Thread.Sleep(5000);
                 foreach (LogearUsuario user in listaUsuarios)
                 {
 
@@ -93,7 +94,8 @@ namespace FormUsuario
 
         private void MostrarMensaje()
         {
-            MessageBox.Show("Buscando usuario....");
+            FormEmergente formEmergente = new("Buscando usuario....");
+            formEmergente.ShowDialog();
         }
 
 
@@ -103,7 +105,7 @@ namespace FormUsuario
             Task task = new Task(MostrarMensaje);
             task.Start();
            
-            Thread.Sleep(1000);
+          
 
         }
 

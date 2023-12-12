@@ -30,6 +30,7 @@ C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\bin\Debug\net6.0-window
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\bin\Debug\net6.0-windows\PrimerParcial.dll
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\bin\Debug\net6.0-windows\PrimerParcial.pdb
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\obj\Debug\net6.0-windows\FormUsuario.csproj.AssemblyReference.cache
+C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\obj\Debug\net6.0-windows\FormUsuario.FormEmergente.resources
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\obj\Debug\net6.0-windows\FormUsuario.FrmCRUDArquero.resources
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\obj\Debug\net6.0-windows\FormUsuario.FrmCRUDGuerrero.resources
 C:\Users\augus\source\repos\Mercadoo.Augusto\FormUsuario\obj\Debug\net6.0-windows\FormUsuario.FrmCRUDMago.resources

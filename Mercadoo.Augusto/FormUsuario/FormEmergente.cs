@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FormUsuario.Interfaces;
 
 namespace FormUsuario
 {
-    public partial class FormEmergente : Form
+    public partial class FormEmergente : Form,IConfiguracion
     {
         private System.Windows.Forms.Timer timer;
         private string mensaje;
@@ -27,6 +28,7 @@ namespace FormUsuario
         public FormEmergente(string mensajee) : this()
         {
             this.mensaje = mensajee;
+            this.CambiarLabelMensaje();
         }
 
         public void ConfigurarForm()
@@ -35,7 +37,6 @@ namespace FormUsuario
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = " ";
             this.BackColor = System.Drawing.Color.GhostWhite;
-            this.CambiarLabelMensaje();
 
 
         }
@@ -44,7 +45,7 @@ namespace FormUsuario
         /// </summary>
         private void CambiarLabelMensaje()
         {
-    
+            
             this.Textlbl.Text = this.mensaje;
             this.timer.Start();
         }

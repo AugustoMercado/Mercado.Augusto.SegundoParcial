@@ -18,8 +18,9 @@
   <Class Name="FormUsuario.FrmPrincipal">
     <Position X="4.25" Y="0.5" Width="4.75" />
     <TypeIdentifier>
-      <HashCode>IQAAQEAAAOSiBBICgADCAIBCCADIAJyAQBAAMBCMCAA=</HashCode>
+      <HashCode>IQAAQEAAAOSiBBICgADCAIBCCADIgJyAQBAAMBCMCAA=</HashCode>
       <FileName>FrmPrincipal.cs</FileName>
+      <NewMemberFileName>FrmPrincipal.Designer.cs</NewMemberFileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -57,13 +58,13 @@
   <Class Name="FormUsuario.FrmCRUDMago">
     <Position X="9.5" Y="15.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AQIAAAAAACSAEAQGEACAAAACAAAAIIACAAACAAAAAiA=</HashCode>
+      <HashCode>AQIAAAAAACSAEAQGEACAAAACAAACIIACAAACAAAAAiA=</HashCode>
       <FileName>FrmCRUDMago.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FormUsuario.CrearLog">
-    <Position X="9.25" Y="4.5" Width="3.75" />
+    <Position X="9.25" Y="4.25" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAQAAAAQAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>CrearLog.cs</FileName>

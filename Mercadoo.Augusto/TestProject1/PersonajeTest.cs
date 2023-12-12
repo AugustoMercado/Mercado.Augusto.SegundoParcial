@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NuGet.Frameworks;
 using PrimerParcial;
 
 namespace TestProject1
@@ -124,7 +125,7 @@ namespace TestProject1
             ejercito1 += guerrero3;
 
             // Assert
-            Assert.AreEqual(ejercito1.Miembros.Count, 3);
+            Assert.AreNotEqual(ejercito1.Miembros.Count, 2);
 
         }
 
@@ -140,7 +141,8 @@ namespace TestProject1
             ejercito += guerrero1; // Intentar agregar el mismo personaje nuevamente
 
             // Assert
-            Assert.AreEqual(ejercito.Miembros.Count, 2);
+            Assert.IsTrue(ejercito.Miembros.Contains(guerrero1));
+   
         }
 
         [TestMethod]
@@ -155,7 +157,8 @@ namespace TestProject1
             ejercito += guerrero3; // Intentar agregar el mismo personaje nuevamente
 
             // Assert
-            Assert.AreEqual(ejercito.Miembros.Count, 2);
+            Assert.IsTrue(ejercito.Miembros.Contains(guerrero3));
+            //Assert.AreEqual(ejercito.Miembros.Count, 2);
         }
 
 

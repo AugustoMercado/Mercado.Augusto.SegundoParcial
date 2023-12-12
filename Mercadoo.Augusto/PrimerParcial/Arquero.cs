@@ -87,7 +87,7 @@ namespace PrimerParcial
                 SqlCommand sqlComando = new SqlCommand();
                 sqlComando.CommandType = System.Data.CommandType.Text;
                 //en vez de codearlo, pasarlo como parametro.
-                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,puntosPrecision,puntosVelocidad FROM Arqueroo";
+                sqlComando.CommandText = "select id, nombre, nivel, tipoPersonaje,puntosPrecision,puntosVelocidad FROM Arquero";
                 sqlComando.Connection = conexion;
                 conexion.Open();
                 lector = sqlComando.ExecuteReader();

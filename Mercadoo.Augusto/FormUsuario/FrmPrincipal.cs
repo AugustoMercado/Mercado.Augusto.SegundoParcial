@@ -46,6 +46,7 @@ namespace FormUsuario
             this.baseDatos = new();
             this.datosG = this.obtenerDatosGenerales;
             this.notificacion = this.MostrarMensaje;
+            this.path = "Ejercito.xml";
         }
 
         public FrmPrincipal(LogearUsuario usuarioActual) : this()
@@ -53,6 +54,7 @@ namespace FormUsuario
             //this.path = $"EjercitoDe{usuario.apellido}.xml";
             this.usuario = usuarioActual;
             this.ConfigurarForm();
+        
             this.EjecutarTask(TraerDatos, "Cargando....");
             this.MostrarCRUD(this.usuario);
             this.escribirlog = new($"Inicio sesion {usuario.apellido} {usuario.nombre}", usuario);
@@ -65,10 +67,10 @@ namespace FormUsuario
         public void ConfigurarForm()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            MessageBox.Show($"Bienvenido de nuevo {this.usuario.apellido} {this.usuario.nombre}");
+            MessageBox.Show($"Bienvenido de nuevo {this.usuario.apellido} {this.usuario.nombre}:D");
             this.Text = $"{usuario.apellido} {usuario.nombre} - {DateTime.Today}";
             this.lblEjercito.Text = $"Ejercito de {usuario.apellido}";
-            this.MostrarBoton();
+         
 
         }
         #region Metodos Forms Del CRUD
@@ -126,9 +128,9 @@ namespace FormUsuario
                     }
 
                 }
-                this.MostrarBoton();
+                this.MostrarBoton(this.personajes);
             }
-            this.MostrarMensaje("Se agrego con exito", "Error al agregar", retorno);
+            this.MostrarMensaje("Se agrego con exito", retorno);
 
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
@@ -136,7 +138,8 @@ namespace FormUsuario
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            string mensaje = "";
+            bool retorno = false;
+            string mensaje = "No se modifico.";
 
             int index = this.lstEjercito.SelectedIndex;
 
@@ -157,12 +160,17 @@ namespace FormUsuario
 
                 if (crudMago.DialogResult == DialogResult.OK)
                 {
+                    if (this.baseDatos.ModificarPersonaje(crudMago.personaje)) 
+                    {
+                        this.personajes.miembros[index] = crudMago.personaje;
+                        mensaje = $"Se modifico{personajeM} a {crudMago.personaje}.";
+                        retorno = true;
 
-                    this.personajes.miembros[index] = crudMago.personaje;
+
+                    }
                     //this.baseDatos.ModificarPersonaje(crudMago.personaje);
-                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudMago.personaje));
+                    //this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudMago.personaje));
 
-                    mensaje = $"Se modifico{personajeM} a {crudMago.personaje}.";
 
                 }
             }
@@ -175,12 +183,15 @@ namespace FormUsuario
 
                 if (crudGuerrero.DialogResult == DialogResult.OK)
                 {
-
-                    this.personajes.miembros[index] = crudGuerrero.guerrero;
+                    if (this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero))
+                    {
+                        this.personajes.miembros[index] = crudGuerrero.guerrero;
+                        mensaje = $"Se modifico{personajeG} a {crudGuerrero.guerrero}.";
+                        retorno = true;
+                    }
                     //this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero);
-                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero));
+                    //this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudGuerrero.guerrero));
 
-                    mensaje = $"Se modifico{personajeG} a {crudGuerrero.guerrero}.";
 
                 }
 
@@ -197,18 +208,22 @@ namespace FormUsuario
                 if (crudArquero.DialogResult == DialogResult.OK)
                 {
 
-                    this.personajes.miembros[index] = crudArquero.arquero;
+                    if (this.baseDatos.ModificarPersonaje(crudArquero.arquero)) 
+                    {
+                        this.personajes.miembros[index] = crudArquero.arquero;  
+                        mensaje = $"Se modifico{personajeA} a {crudArquero.arquero}.";
+                        retorno = true;
+
+                    }
                     //this.baseDatos.ModificarPersonaje(crudArquero.arquero);
-                    this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudArquero.arquero));
-
-                    mensaje = $"Se modifico{personajeA} a {crudArquero.arquero}.";
-
+                    //this.MostrarMensaje("Se modifico con exito", "Error al modificar", this.baseDatos.ModificarPersonaje(crudArquero.arquero));
 
                 }
 
             }
             this.escribirlog.mensaje = mensaje;
             //this.EjecutarTask(ActualizarVisualizador, "guardando....");;
+            this.MostrarMensaje("Se modifico con exito", retorno);
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
         }
@@ -220,6 +235,7 @@ namespace FormUsuario
             ListaPersonaje<Arquero> arquero = new(Properties.Resources.miConexion);
 
             bool retorno = false;
+            string mensaje = "No se elimino.";
             int index = this.lstEjercito.SelectedIndex;
 
             if (index == -1)
@@ -239,17 +255,22 @@ namespace FormUsuario
                 {
 
 
-                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere eliminar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        personajes = this.personajes -= personajeM;
-                        retorno = mago.EliminarPersonaje(personajeM, personajeM.ID);
+                       if (mago.EliminarPersonaje(personajeM, personajeM.ID)) 
+                        {
+                        
+                            retorno = true;
+                            personajes = this.personajes -= personajeM;
+                            mensaje = this.personajes.mensaje;
+                        }
                         //retorno = personajeM.EliminarPersonaje(Properties.Resources.miConexion, personajeM.ID);
 
                     }
-                    this.escribirlog.mensaje = this.personajes.mensaje;
 
                 }
+
 
             }
             else if (personaje.tipoPersonaje == EPersonajes.guerrero)
@@ -262,16 +283,20 @@ namespace FormUsuario
 
                 if (crudGuerrero.DialogResult == DialogResult.OK)
                 {
-                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere eliminar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        personajes = this.personajes -= personajeG;
-                        retorno = guerrero.EliminarPersonaje(personajeG, personajeG.ID);
+                        if (guerrero.EliminarPersonaje(personajeG, personajeG.ID)) 
+                        {
+                            retorno = true;
+                            personajes = this.personajes -= personajeG;
+                            mensaje = this.personajes.mensaje;
+                        }
                         //retorno = personajeG.EliminarPersonaje(Properties.Resources.miConexion, personajeG.ID);
                     }
 
-                    this.escribirlog.mensaje = this.personajes.mensaje;
                 }
+
 
             }
             else if (personaje.tipoPersonaje == EPersonajes.arquero)
@@ -286,22 +311,28 @@ namespace FormUsuario
                 {
 
 
-                    DialogResult result = MessageBox.Show("Esta seguro que quiere elimar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("Esta seguro que quiere eliminar este personaje?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                     if (result == DialogResult.OK)
                     {
-                        personajes = this.personajes -= personajeA;
-                        retorno = arquero.EliminarPersonaje(personajeA, personajeA.ID);
+                        if (arquero.EliminarPersonaje(personajeA, personajeA.ID))
+                        {
+                            retorno = true;
+                            personajes = this.personajes -= personajeA;
+                            mensaje = this.personajes.mensaje;
+
+                        }
                         //retorno = personajeA.EliminarPersonaje(Properties.Resources.miConexion, personajeA.ID);
 
                     }
-                    this.escribirlog.mensaje = this.personajes.mensaje;
                 }
 
+
             }
-            this.MostrarMensaje("Se elimino con exito", "Error al eliminar", retorno);
-            this.escribirlog.mensaje = this.personajes.mensaje;
-            //this.EjecutarTask(ActualizarVisualizador, "guardando...."); ;
+            this.MostrarMensaje("Se elimino con exito", retorno);
+            this.escribirlog.mensaje = mensaje;
+            this.ActualizarVisualizador();
             this.ActualizarEjercito();
+            //this.EjecutarTask(ActualizarVisualizador, "guardando...."); ;
 
         }
         #endregion
@@ -316,14 +347,28 @@ namespace FormUsuario
             DialogResult result = MessageBox.Show("Esta seguro que quiere cerrar sesion?", string.Empty, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
-                this.escribirlog.mensaje = "Cerro sesion.";
 
+
+                if (this.GuardarArchivo()) 
+                {
+                
+                    MessageBox.Show("Guardado.");
+                    this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
+                    this.ActualizarVisualizador();
+
+                }
+
+                this.escribirlog.mensaje = "Cerro sesion.";
                 this.ActualizarVisualizador();
+
+                Thread.Sleep(3000);
                 Application.Exit();
+                //this.EjecutarTask(Application.Exit,"Hasta la proxima....");
             }
 
 
         }
+
 
         #region Metodos
         /// <summary>
@@ -395,8 +440,9 @@ namespace FormUsuario
             this.datos += a.ObtenerDatos;
             Mago m = new();
             this.datos += m.ObtenerDatos;
-
+            Thread.Sleep(1000);
             this.personajes = this.datos.Invoke(Properties.Resources.miConexion, this.personajes);
+            this.MostrarBoton(this.personajes);
         }
 
 
@@ -436,16 +482,17 @@ namespace FormUsuario
         /// <summary>
         /// Oculta el boton si no hay ningun personaje, si hay personajes lo muestra.
         /// </summary>
-        private void MostrarBoton()
+        private void MostrarBoton(Ejercito personajes)
         {
-            if (this.personajes.Miembros.Count > 0)
+            if (personajes.Miembros.Count > 0)
             {
-                this.btnAtacar.Show();
+
+                this.btnAtacar.Enabled = true;
 
             }
             else
             {
-                this.btnAtacar.Hide();
+                this.btnAtacar.Enabled = false;
 
             }
 
@@ -492,8 +539,9 @@ namespace FormUsuario
         {
             Task task = new Task(metodo);
             task.Start();
-            MessageBox.Show(mensaje);
-            Thread.Sleep(1000);
+            FormEmergente formEmergente = new(mensaje);
+            formEmergente.ShowDialog();
+
 
         }
 
@@ -527,15 +575,11 @@ namespace FormUsuario
 
         }
 
-        public void MostrarMensaje(string mensajeTrue, string mensajeFalse, bool respuesta)
+        public void MostrarMensaje(string mensajeTrue, bool respuesta)
         {
-            if (respuesta)
+            if (respuesta == true)
             {
                 MessageBox.Show(mensajeTrue);
-            }
-            else
-            {
-                MessageBox.Show(mensajeFalse);
             }
         }
 
@@ -561,12 +605,12 @@ namespace FormUsuario
                 {
 
                     this.LlmarMostrarMensaje(miembro);
+                    this.escribirlog.mensaje = miembro.ToString();
                     //sb.AppendLine($" {miembro.Atacar()}\n");
 
                 }
 
             }
-            this.escribirlog.mensaje = sb.ToString();
             this.ActualizarVisualizador();
             this.ActualizarEjercito();
         }
@@ -592,7 +636,7 @@ namespace FormUsuario
                         try
                         {
 
-                            using (XmlTextReader reader = new XmlTextReader($@"..\..\..\{filePath}"))
+                            using (XmlTextReader reader = new XmlTextReader($@"{filePath}"))
                             {
 
                                 XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
@@ -605,7 +649,7 @@ namespace FormUsuario
                                     this.personajes += per;
                                 }
 
-                                this.MostrarBoton();
+                                this.MostrarBoton(this.personajes);
                                 this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
                                 this.ActualizarVisualizador();
                             }
@@ -631,45 +675,57 @@ namespace FormUsuario
 
         }
 
+        /// <summary>
+        /// Metodo que nos permite elegir donde guardar el archivo xml.
+        /// </summary>
+        /// <returns>Retorna true si se guardo el archivo, caso contrario false</returns>
+        private bool GuardarArchivo()
+        {
+            bool confirmacion = false;
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Title = "Guardar Archivo XML";
+                    saveFileDialog.Filter = "Archivos XML|*.xml|Todos los archivos|*.*";
+                    saveFileDialog.FileName = this.path;
+
+                    saveFileDialog.InitialDirectory = @"..\..\..\..\";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        this.path = saveFileDialog.FileName;
+                        confirmacion = true;
+                    }
+                }
+
+                return confirmacion;
+            }
+        }
+
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.personajes.miembros.Count > 0)
             {
-                string filePath = "";
                 try
                 {
-                    using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                    {
-    
-                        saveFileDialog.Title = "Guardar Archivo XML";
-                        saveFileDialog.Filter = "Archivos XML|*.xml|Todos los archivos|*.*";
-                        saveFileDialog.FileName = this.path;
-                        saveFileDialog.InitialDirectory = @"..\..\..\..\";
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            filePath = saveFileDialog.FileName;
 
-                            try
-                            {
-                                using (XmlTextWriter writer = new XmlTextWriter($@"..\..\..\{filePath}", Encoding.UTF8))
-                                {
-                                    XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
-                                    ser.Serialize(writer, this.personajes.Miembros);
-                                    this.escribirlog.mensaje = "Datos guardados en el archivo xlm";
-                                    this.ActualizarVisualizador();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new MiExcepcion("Error al escribir el archivo....", ex);
-                            }
+                    try
+                    {
+                        using (XmlTextWriter writer = new XmlTextWriter($"{this.path}", Encoding.UTF8))
+                        {
+                            XmlSerializer ser = new XmlSerializer(typeof(List<Personaje>), new Type[] { typeof(Guerrero), typeof(Mago), typeof(Arquero) });
+                            ser.Serialize(writer, this.personajes.Miembros);
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        throw new MiExcepcion("Error al escribir el archivo....", ex);
+                    }
+                        
                 }
                 catch (MiExcepcion excepcion)
                 {
                     //MessageBox.Show($"Error al serializar y guardar los datos: {ex.Message}", "Error");
-                    MessageBox.Show($"{excepcion} {filePath}");
+                    MessageBox.Show($"{excepcion} {this.path}");
                     // Puedes agregar más detalles al mensaje de error si es necesario
                 }
 
