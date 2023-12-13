@@ -20,9 +20,9 @@ Esta aplicación tiene como objetivo la creación y gestión de un ejército (si
 
 Esta aplicación te brinda la posibilidad de crear y gestionar tu propio ejército de personajes de una manera sencilla.
 
-![image](https://github.com/AugustoMercado/Mercado.Augusto.SegundoParcial/assets/108632763/0ec0d3a5-deca-4e96-8a8b-3239efcb03d9)
+![image](https://github.com/AugustoMercado/Mercado.Augusto.SegundoParcial/assets/108632763/5ef3ce26-e144-44c4-b5bf-7497e7623fa9)
 
-![image](https://github.com/AugustoMercado/Mercado.Augusto.SegundoParcial/assets/108632763/8a211d45-e4c4-4309-867b-b21af233f08d)
+![image](https://github.com/AugustoMercado/Mercado.Augusto.SegundoParcial/assets/108632763/cab8b9af-b37d-4e8a-86d8-954d66fd67ac)
 
 ![image](https://github.com/AugustoMercado/Mercado.Augusto.SegundoParcial/assets/108632763/3c4d64f5-5c67-4c11-a4da-2acbe3d02ce4)
 
