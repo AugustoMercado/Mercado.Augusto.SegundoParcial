@@ -128,7 +128,7 @@ namespace FormUsuario
                     }
 
                 }
-                this.MostrarBoton(this.personajes);
+                //this.MostrarBoton(this.personajes);
             }
             this.MostrarMensaje("Se agrego con exito", retorno);
 
@@ -442,7 +442,7 @@ namespace FormUsuario
             this.datos += m.ObtenerDatos;
             Thread.Sleep(1000);
             this.personajes = this.datos.Invoke(Properties.Resources.miConexion, this.personajes);
-            this.MostrarBoton(this.personajes);
+            //this.MostrarBoton(this.personajes);
         }
 
 
@@ -482,21 +482,21 @@ namespace FormUsuario
         /// <summary>
         /// Oculta el boton si no hay ningun personaje, si hay personajes lo muestra.
         /// </summary>
-        private void MostrarBoton(Ejercito personajes)
-        {
-            if (personajes.Miembros.Count > 0)
-            {
+        //private void MostrarBoton(Ejercito personajes)
+        //{
+        //    if (personajes.Miembros.Count > 0)
+        //    {
 
-                this.btnAtacar.Enabled = true;
+        //        this.btnAtacar.Enabled = true;
 
-            }
-            else
-            {
-                this.btnAtacar.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        this.btnAtacar.Enabled = false;
 
-            }
+        //    }
 
-        }
+        //}
 
         /// <summary>
         /// Metodo para invocar a mostrarMensaje.
@@ -649,7 +649,7 @@ namespace FormUsuario
                                     this.personajes += per;
                                 }
 
-                                this.MostrarBoton(this.personajes);
+                                //this.MostrarBoton(this.personajes);
                                 this.escribirlog.mensaje = "Datos obtenidos del archivo xlm";
                                 this.ActualizarVisualizador();
                             }
