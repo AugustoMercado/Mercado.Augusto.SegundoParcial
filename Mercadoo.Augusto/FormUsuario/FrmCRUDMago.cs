@@ -22,6 +22,7 @@ namespace FormUsuario
         private Mensaje mensaje;
         private bool camposLlenos;
         private int tipoMagia;
+        private ListaGenerica.ListaPersonaje<Mago> listaM;
         #endregion
 
         #region  Constructores
@@ -31,6 +32,8 @@ namespace FormUsuario
             this.ConfigurarForm();
             this.camposLlenos = false;
             this.tipoMagia = -1;
+            this.listaM = new(Properties.Resources.miConexion);
+            this.id = 0;
         }
 
         public FrmCRUDMago(Mago prod) : this()
@@ -112,6 +115,7 @@ namespace FormUsuario
                 else if (resultNivel != -1 && resultPuntosMagia != -1)
                 {
                     this.personaje = new(magia, resultPuntosMagia, resultNivel, nombre);
+                    this.personaje.ID = listaM.ObtenerUltimoID(personaje, this.id);
                     this.DialogResult = DialogResult.OK;
 
                 }

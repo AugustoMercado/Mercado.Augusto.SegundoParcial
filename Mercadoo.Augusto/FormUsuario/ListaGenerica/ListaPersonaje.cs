@@ -73,6 +73,61 @@ namespace FormUsuario.ListaGenerica
 
             return retorno;
         }
+        /// <summary>
+        /// Metodo para buscar el ultimo id de la base de datos.
+        /// </summary>
+        /// <param name="personaje">Tipo de personaje</param>
+        /// <param name="id">id que se va a cambiar o asignar</param>
+        /// <returns>retorna el id + 1 en caso de que la base tenga datos, caso contario retorna 0 + 1</returns>
+        public int ObtenerUltimoID(T personaje, int id)
+        {
+
+            SqlConnection conexion = new(this.cadenaConexion);
+            SqlDataReader lector;
+
+            try
+            {
+                SqlCommand sqlComando = new SqlCommand();
+                sqlComando.CommandType = System.Data.CommandType.Text;
+                sqlComando.CommandText = $"select TOP 1 id FROM {typeof(T).Name} Order by id DESC";
+                sqlComando.Connection = conexion;
+                conexion.Open();
+                lector = sqlComando.ExecuteReader();
+                if (lector.Read())
+                {
+                    id = (int)lector["id"];
+                }
+                else
+                {
+
+                    id = 0;
+
+                }
+                lector.Close();
+
+
+            }
+            catch (Exception e)
+            {
+
+                throw new MiExcepcion("Error al obtener ultimo id de la base....", e);
+
+            }
+            finally
+            {
+                if (conexion.State == System.Data.ConnectionState.Open)
+                {
+
+                    conexion.Close();
+
+                }
+
+            }
+            return id + 1;
+
+
+
+        }
         #endregion
     }
 }

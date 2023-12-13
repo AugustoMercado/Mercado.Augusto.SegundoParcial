@@ -19,6 +19,7 @@ namespace FormUsuario
         private int id;
         private Mensaje mensaje;
         private bool camposLlenos;
+        private ListaGenerica.ListaPersonaje<Arquero> listaA;
         #endregion
 
         #region Constructores
@@ -28,6 +29,8 @@ namespace FormUsuario
             this.ConfigurarForm();
             this.mensaje = MostrarMensaje;
             this.camposLlenos = false;
+            this.id = 0;
+            this.listaA = new(Properties.Resources.miConexion);
         }
 
         public FrmCRUDArquero(Arquero arquero) : this()
@@ -75,6 +78,7 @@ namespace FormUsuario
                 {
 
                     this.arquero = new(resultPuntosVelocidad, resultPrecision, resultNivel, nombre);
+                    this.arquero.ID = listaA.ObtenerUltimoID(arquero, this.id);
                     this.DialogResult = DialogResult.OK;
 
                 }

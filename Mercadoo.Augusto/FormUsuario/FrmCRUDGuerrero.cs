@@ -20,6 +20,7 @@ namespace FormUsuario
         private int id;
         private Mensaje mensaje;
         private bool camposLlenos;
+        private ListaGenerica.ListaPersonaje<Guerrero> listG;
         #endregion
 
         #region Constructores
@@ -29,7 +30,8 @@ namespace FormUsuario
             this.ConfigurarForm();
             this.mensaje = MostrarMensaje;
             this.camposLlenos = false;
-
+            this.id = 0;
+            this.listG = new(Properties.Resources.miConexion);
         }
 
         public FrmCRUDGuerrero(Guerrero prod) : this()
@@ -79,7 +81,7 @@ namespace FormUsuario
                 {
 
                     this.guerrero = new Guerrero(resultPuntosAtaque, resultPuntosDefensa, resultNivel, nombre);
-
+                    this.guerrero.ID = listG.ObtenerUltimoID(guerrero, this.id);
                     this.DialogResult = DialogResult.OK;
                 }
             }
